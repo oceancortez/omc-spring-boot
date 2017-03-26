@@ -6,6 +6,6 @@ Project:
 omc-pedidos-mvn-multiple-module
 
 Description:
-Projeto utilizando spring boot, foi criar com multiplos modulos
+Projeto utilizando spring boot, criando multiplos modulos do maven
 
 
