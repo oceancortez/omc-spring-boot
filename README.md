@@ -2,22 +2,23 @@
 Criando micro projetos e testando o spring boot
 
 
-@Branch: 
+#Branch: 
 omc-pedidos-mvn-multiple-module
-@Description:
+
+#Description:
 Projeto utilizando spring boot, criando multiplos modulos do maven
 
 
 
-@Branch: 
+#Branch: 
 omc-pedidos-mvn-multiple-module-jersey
-@Description:
+#Description:
 Projeto utilizando spring boot, criando multiplos modulos do maven com jersey
 
 
-@Branch: 
+#Branch: 
 omc-pedidos-mvn-multiple-module-jersey-jpa-hibernate
-@Description:
+#Description:
 Projeto utilizando spring boot, criando multiplos modulos do maven com jersey e JPA e Hibernate
 
 
