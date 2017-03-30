@@ -28,7 +28,7 @@ import omc.pedidos.persistence.ClienteDAO;
  *
  */
 @Component
-@Path("cliente")
+@Path("/cliente")
 public class ClienteRestful {
 	
 	@Autowired
@@ -50,6 +50,15 @@ public class ClienteRestful {
 		String array = mapper.writeValueAsString(clientes);
 		
 		return Response.status(200).entity(array).build();
+	}
+	
+	
+	@GET
+	@Path("/test")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response getTest(){
+		
+		return Response.status(200).entity("TesteOK").build();
 	}
 
 }
