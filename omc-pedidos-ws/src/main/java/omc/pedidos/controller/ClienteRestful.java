@@ -3,6 +3,7 @@
  */
 package omc.pedidos.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -19,9 +20,10 @@ import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 import omc.pedidos.entity.ClienteEntity;
-import omc.pedidos.persistence.ClienteDAO;
+import omc.pedidos.repository.IClienteDAO;
 
 /**
  * @author ocean
@@ -32,7 +34,7 @@ import omc.pedidos.persistence.ClienteDAO;
 public class ClienteRestful {
 	
 	@Autowired
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 		
 	@GET
 	@Path("/listar-por")
@@ -57,7 +59,7 @@ public class ClienteRestful {
 	@Path("/test")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response getTest(){
-		
+		System.out.println("Entou no método getTest as ".concat(new Date().toString()));
 		return Response.status(200).entity("TesteOK").build();
 	}
 

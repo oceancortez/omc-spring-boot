@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.persistence;
+package omc.pedidos.repository;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import omc.pedidos.entity.ClienteEntity;
  * @author ocean
  *
  */
-public interface ClienteDAO {
+public interface IClienteDAO {
 	
 	
 	List<ClienteEntity> listPorNome(String nome);

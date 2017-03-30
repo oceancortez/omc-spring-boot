@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.persistence;
+package omc.pedidos.repository;
 
 import java.util.Properties;
 

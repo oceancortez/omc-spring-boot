@@ -1,4 +1,4 @@
-package omc.pedidos.persistence;
+package omc.pedidos.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +12,9 @@ import omc.pedidos.entity.ClienteEntity;
 @ComponentScan
 public class ClienteTest implements CommandLineRunner{
 	
-	private ClienteDAO clienteDAO;
+	private IClienteDAO clienteDAO;
 	
-	public ClienteTest(ClienteDAO dao) {
+	public ClienteTest(IClienteDAO dao) {
 		this.clienteDAO = dao;
 	}
 

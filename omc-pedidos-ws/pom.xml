@@ -33,7 +33,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   	 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
         </dependency>
+        
+        <!-- Provided -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
         
          <dependency>
             <groupId>omc</groupId>
@@ -56,6 +69,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   </dependencies>
   
    <build>
+   			<!-- muda o nome do pacote -->
+  		 <!-- <finalName>omc-pedidos-multi-jta-jndi</finalName> -->
 		<plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

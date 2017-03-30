@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.persistence;
+package omc.pedidos.repository;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import omc.pedidos.entity.ClienteEntity;
  */
 @Repository
 @Transactional
-public class ClienteDAOImpl implements ClienteDAO{
+public class ClienteDAOImpl implements IClienteDAO{
 	
 	@PersistenceContext
 	private EntityManager entityManager;

@@ -11,7 +11,7 @@ Start
 	mvn package
 	cd omc-pedidos-ws
 	cd target
-	java -jar omc-pedidos-ws-0.0.1-SNAPSHOT.jar
+	java -jar omc-pedidos-ws-0.0.1-SNAPSHOT.war
 	
 
 
