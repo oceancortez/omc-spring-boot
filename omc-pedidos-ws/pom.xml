@@ -15,7 +15,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	</properties>
   
   <dependencies>
-  
+
+
+	<dependency>
+		<groupId>omc</groupId>
+		<artifactId>omc-pedidos-business</artifactId>
+		<version>${project.parent.version}</version>
+	</dependency>
 
 		<!-- Compile -->
 		<dependency>
@@ -47,18 +53,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-        
-         <dependency>
-            <groupId>omc</groupId>
-            <artifactId>omc-pedidos-domain</artifactId>
-            <version>${project.parent.version}</version>  
-            </dependency>
-                      
-          <dependency>          
-            <groupId>omc</groupId>
-            <artifactId>omc-pedidos-persistence</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
         
         <!-- MySQL DRIVER -->
 			<dependency>

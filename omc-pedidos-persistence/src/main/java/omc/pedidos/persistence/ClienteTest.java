@@ -1,4 +1,4 @@
-package omc.pedidos.repository;
+package omc.pedidos.persistence;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -11,6 +11,7 @@
   	<module>omc-pedidos-ws</module>
   	<module>omc-pedidos-domain</module>
   	<module>omc-pedidos-persistence</module>
+  	<module>omc-pedidos-business</module>
   </modules>
   
   <parent>
@@ -24,6 +25,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<hibernate.version>3.6.10.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -48,6 +50,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- HIBERNATE ENTITYMANAGER -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
 		
 	</dependencies>
 </project>

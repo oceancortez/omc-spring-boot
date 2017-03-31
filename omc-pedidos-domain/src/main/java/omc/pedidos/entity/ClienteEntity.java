@@ -8,10 +8,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author ocean
@@ -19,25 +21,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "cliente", schema = "omc")
+@JsonIgnoreProperties
 public class ClienteEntity {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CODCLI")
+	@JsonProperty
 	private Long codigo;
 	
 	@Column(name = "NOMCLI")
+	@JsonProperty
 	private String nome;
 	
 	@Column(name = "DATCADCLI")
+	@JsonProperty
 	private Date dataCadastro;
 	
 	@Column(name = "DATULTALTCLI")
+	@JsonProperty
 	private Date dataUltimaAlteracao;
 	
 	
 	public ClienteEntity() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ClienteEntity(Long codigoCliente) {

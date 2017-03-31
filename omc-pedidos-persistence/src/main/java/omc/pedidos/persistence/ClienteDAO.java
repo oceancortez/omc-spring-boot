@@ -1,16 +1,16 @@
 /**
  * 
  */
-package omc.pedidos.repository;
+package omc.pedidos.persistence;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import omc.pedidos.entity.ClienteEntity;
 
@@ -20,7 +20,7 @@ import omc.pedidos.entity.ClienteEntity;
  */
 @Repository
 @Transactional
-public class ClienteDAOImpl implements IClienteDAO{
+public class ClienteDAO extends GenericDAO<ClienteEntity, Long> implements IClienteDAO  {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
