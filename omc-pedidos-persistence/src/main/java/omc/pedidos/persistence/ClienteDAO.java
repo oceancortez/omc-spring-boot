@@ -19,7 +19,6 @@ import omc.pedidos.entity.ClienteEntity;
  *
  */
 @Repository
-@Transactional
 public class ClienteDAO extends GenericDAO<ClienteEntity, Long> implements IClienteDAO  {
 	
 	@PersistenceContext
