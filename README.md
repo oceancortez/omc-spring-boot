@@ -24,9 +24,9 @@ Start WAR
 	java -jar omc-pedidos-ws-0.0.1-SNAPSHOT.war
 
 
-Start WAR com WIDIFLY
+Start WAR com WILDFLY
 ------------
-	Baixar o widilfy e descompactar no c:
+	Baixar o wildlfy e descompactar no c:
 	Criar a Base e tabela de Cliente conforme arquivo omc-pedidos-2.sql
 	Abrir o prompt command
 	Ir até o dir > omc-spring-boot
