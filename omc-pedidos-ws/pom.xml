@@ -1,76 +1,76 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>omc-pedidos-ws</artifactId>
-  <packaging>war</packaging>
-    
-   <parent>
-	<groupId>omc</groupId>
-	<artifactId>omc-pedidos-mvn-multiple-module-jersey-jpa</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-</parent>
-  
-  <properties>
-      <start-class>omc.pedidos.service.SampleApplication</start-class>
-	</properties>
-  
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>omc-pedidos-ws</artifactId>
+	<packaging>war</packaging>
 
-
-	<dependency>
+	<parent>
 		<groupId>omc</groupId>
-		<artifactId>omc-pedidos-business</artifactId>
-		<version>${project.parent.version}</version>
-	</dependency>
+		<artifactId>omc-spring-boot</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<start-class>omc.pedidos.service.SampleApplication</start-class>
+	</properties>
+
+	<dependencies>
+
+
+		<dependency>
+			<groupId>omc</groupId>
+			<artifactId>omc-pedidos-business</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 
 		<!-- Compile -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
 		</dependency>
-		
-		 <!-- marked the embedded servlet container as provided -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-  
-  	 <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
+
+		<!-- marked the embedded servlet container as provided -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>
 			</exclusions>
-        </dependency>
-        
-        <!-- Provided -->
+		</dependency>
+
+		<!-- Provided -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-        
-        <!-- MySQL DRIVER -->
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-			</dependency>
-  
-  </dependencies>
-  
-   <build>
-   			<!-- muda o nome do pacote -->
-  		 <!-- <finalName>omc-pedidos-multi-jta-jndi</finalName> -->
+
+		<!-- MySQL DRIVER -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<!-- muda o nome do pacote -->
+		<!-- <finalName>omc-pedidos-multi-jta-jndi</finalName> -->
 		<plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>

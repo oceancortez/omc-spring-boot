@@ -3,7 +3,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>omc</groupId>
-    <artifactId>omc-pedidos-mvn-multiple-module-jersey-jpa</artifactId>
+    <artifactId>omc-spring-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>omc-pedidos-persistence</artifactId>
