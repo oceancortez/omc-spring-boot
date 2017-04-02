@@ -67,7 +67,7 @@ public abstract class GenericDAO<T, PK>  implements IGenericDAO<T, PK>{
 	
 	private Class<?> getTypeClass() {
 		final Class<?> clazz =
-				(Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+				(Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		return clazz;
 	}
 	

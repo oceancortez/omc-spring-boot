@@ -31,7 +31,6 @@ public class ClienteBusiness implements IClienteBusiness{
 
 	@Override
 	public List<ClienteEntity> listPorNome(String nome) {
-		// TODO Auto-generated method stub
 		return clienteDAO.listPorNome(nome);
 	}
 
@@ -77,6 +76,11 @@ public class ClienteBusiness implements IClienteBusiness{
 		}
 		
 		return clienteSalvo;
+	}
+
+	@Override
+	public List<ClienteEntity> listarClientes() {
+		return clienteDAO.findAll();
 	}
 
 }

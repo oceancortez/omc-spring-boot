@@ -40,12 +40,30 @@ public class ClienteRestful {
 	@Path("/listar-por")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
-	public Response getClientes(@QueryParam("nome")String nome) throws JsonProcessingException{
+	public Response getClientesByName(@QueryParam("nome")String nome) throws JsonProcessingException{
 		
 		final List<ClienteEntity> clientes = this.iClienteBusiness.listPorNome(nome);
 		
 		if(CollectionUtils.isEmpty(clientes)){
 			return Response.status(200).entity("Não foram encotrados registros com o nome = ".concat(nome)).build();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String array = mapper.writeValueAsString(clientes);
+		
+		return Response.status(200).entity(array).build();
+	}
+	
+	@GET
+	@Path("/listar-clientes")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	@Transactional(readOnly = true)
+	public Response getClientes() throws JsonProcessingException{
+		
+		final List<ClienteEntity> clientes = this.iClienteBusiness.listarClientes();
+		
+		if(CollectionUtils.isEmpty(clientes)){
+			return Response.status(200).entity("Não foram encotrados registros").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();

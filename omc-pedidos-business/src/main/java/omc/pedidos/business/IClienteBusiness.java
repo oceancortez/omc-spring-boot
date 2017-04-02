@@ -17,4 +17,6 @@ public interface IClienteBusiness {
 
 	ClienteEntity cadastrarCliente(String cliente);
 
+	List<ClienteEntity> listarClientes();
+
 }
