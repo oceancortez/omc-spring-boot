@@ -32,5 +32,4 @@ public class JerseyConfig extends ResourceConfig {
 		register(ClienteRestful.class);
 		register(PedidoRestful.class);
 	}
-
 }
