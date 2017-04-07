@@ -1,13 +1,16 @@
 package omc.pedidos.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,9 +33,8 @@ public class PedidoEntity {
 	@JoinColumn(name = "CODCLI")
 	private ClienteEntity clienteEntity;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "CODPRD")
-	private ProdutoEntity produtoEntity;
+	@OneToMany(mappedBy = "pedidoEntity" , cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<ProdutoEntity> produtoEntities;
 	
 	@Column(name = "DATCADPED")
 	private Date dataCadastro;
@@ -53,6 +55,22 @@ public class PedidoEntity {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
+	
+	
+
+	/**
+	 * @return the produtoEntities
+	 */
+	public List<ProdutoEntity> getProdutoEntities() {
+		return produtoEntities;
+	}
+
+	/**
+	 * @param produtoEntities the produtoEntities to set
+	 */
+	public void setProdutoEntities(List<ProdutoEntity> produtoEntities) {
+		this.produtoEntities = produtoEntities;
+	}
 
 	/**
 	 * @return the clienteEntity
@@ -68,19 +86,6 @@ public class PedidoEntity {
 		this.clienteEntity = clienteEntity;
 	}
 
-	/**
-	 * @return the produtoEntity
-	 */
-	public ProdutoEntity getProdutoEntity() {
-		return produtoEntity;
-	}
-
-	/**
-	 * @param produtoEntity the produtoEntity to set
-	 */
-	public void setProdutoEntity(ProdutoEntity produtoEntity) {
-		this.produtoEntity = produtoEntity;
-	}
 
 	/**
 	 * @return the dataCadastro

@@ -4,9 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author ocean
@@ -35,6 +39,10 @@ public class ProdutoEntity {
 	
 	@Column(name = "DATULTALTPRD")
 	private Date dataUltimaAlteracao;
+	
+	@ManyToOne
+	//@JoinColumn(name = "CODPED", insertable=false, updatable=false)
+	private PedidoEntity pedidoEntity;
 
 	public ProdutoEntity(String nomeProduto) {
 		nome = nomeProduto;
@@ -126,6 +134,20 @@ public class ProdutoEntity {
 	 */
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	/**
+	 * @return the pedidoEntity
+	 */
+	public PedidoEntity getPedidoEntity() {
+		return pedidoEntity;
+	}
+
+	/**
+	 * @param pedidoEntity the pedidoEntity to set
+	 */
+	public void setPedidoEntity(PedidoEntity pedidoEntity) {
+		this.pedidoEntity = pedidoEntity;
 	}
 
 }

@@ -85,9 +85,9 @@ public class PedidoRestful {
 	@POST
 	@Path("/cadastrar")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response cadastar(String cliente) throws JsonProcessingException{
+	public Response cadastar(String pedidosJson) throws JsonProcessingException{
 		
-		PedidoType pedido = this.iPedidoBusiness.cadastrarPedido(cliente);
+		PedidoType pedido = this.iPedidoBusiness.cadastrarPedido(pedidosJson);
 		
 		if(pedido == null){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();

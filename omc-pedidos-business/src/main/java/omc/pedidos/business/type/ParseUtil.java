@@ -40,15 +40,20 @@ public class ParseUtil {
 			pedidoType.setClienteType(clienteType);
 		}
 		
-		if(pedidoEntity.getProdutoEntity() != null){
-			final ProdutoType produtoType = new ProdutoType();
-			produtoType.setCodigo(pedidoEntity.getProdutoEntity().getCodigo());
-			produtoType.setNome(pedidoEntity.getProdutoEntity().getNome());
-			produtoType.setQuantidade(pedidoEntity.getProdutoEntity().getQuantidade());
-			produtoType.setValor(pedidoEntity.getProdutoEntity().getValor());
-			produtoType.setDataCadastro(pedidoEntity.getProdutoEntity().getDataCadastro());
-			produtoType.setDataUltimaAlteracao(pedidoEntity.getProdutoEntity().getDataUltimaAlteracao());
-			pedidoType.setProdutoType(produtoType);
+		if(CollectionUtils.isNotEmpty(pedidoEntity.getProdutoEntities())){
+			List<ProdutoType> produtoTypes = new ArrayList<>();
+			for (int i = 0; i < pedidoEntity.getProdutoEntities().size(); i++) {				
+				final ProdutoType produtoType = new ProdutoType();
+				produtoType.setCodigo(pedidoEntity.getProdutoEntities().get(i).getCodigo());
+				produtoType.setNome(pedidoEntity.getProdutoEntities().get(i).getNome());
+				produtoType.setQuantidade(pedidoEntity.getProdutoEntities().get(i).getQuantidade());
+				produtoType.setValor(pedidoEntity.getProdutoEntities().get(i).getValor());
+				produtoType.setDataCadastro(pedidoEntity.getProdutoEntities().get(i).getDataCadastro());
+				produtoType.setDataUltimaAlteracao(pedidoEntity.getProdutoEntities().get(i).getDataUltimaAlteracao());
+				
+				produtoTypes.add(produtoType);
+			}
+			pedidoType.setProdutoTypes(produtoTypes);
 		}		
 		
 		return pedidoType;

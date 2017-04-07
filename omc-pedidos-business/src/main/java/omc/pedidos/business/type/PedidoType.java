@@ -5,6 +5,7 @@ package omc.pedidos.business.type;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,7 +21,7 @@ public class PedidoType implements Serializable{
 	
 	private String nome;
 	
-	private ProdutoType produtoType;
+	private List<ProdutoType> produtoTypes;
 	
 	private ClienteType clienteType;
 	
@@ -47,15 +48,15 @@ public class PedidoType implements Serializable{
 	/**
 	 * @return the produtoType
 	 */
-	public ProdutoType getProdutoType() {
-		return produtoType;
+	public List<ProdutoType> getProdutoTypes() {
+		return produtoTypes;
 	}
 
 	/**
 	 * @param produtoType the produtoType to set
 	 */
-	public void setProdutoType(ProdutoType produtoType) {
-		this.produtoType = produtoType;
+	public void setProdutoTypes(List<ProdutoType> produtoType) {
+		this.produtoTypes = produtoType;
 	}
 
 	/**
