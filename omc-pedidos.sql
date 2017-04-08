@@ -83,3 +83,11 @@ where c.codcli = 3;
 
 -- change de password
 -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;
+
+
+
+
+
+
+
+
