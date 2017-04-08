@@ -6,8 +6,10 @@ package omc.pedidos.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -85,6 +87,40 @@ public class ProdutoRestful {
 	@Path("/cadastrar")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response cadastar(String produtosJson) throws JsonProcessingException{
+		
+		ProdutoType produto = this.produtoBusiness.cadastrarProduto(produtosJson);
+		
+		if(produto == null){
+			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String retorno = mapper.writeValueAsString(produto);
+		
+		return Response.status(200).entity(retorno).build();
+	}
+	
+	@PUT
+	@Path("/atualizar")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response atualizar(String produtosJson) throws JsonProcessingException{
+		
+		ProdutoType produto = this.produtoBusiness.atualizarProduto(produtosJson);
+		
+		if(produto == null){
+			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String retorno = mapper.writeValueAsString(produto);
+		
+		return Response.status(200).entity(retorno).build();
+	}
+	
+	@DELETE
+	@Path("/deletar")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public Response deletar(String produtosJson) throws JsonProcessingException{
 		
 		ProdutoType produto = this.produtoBusiness.cadastrarProduto(produtosJson);
 		

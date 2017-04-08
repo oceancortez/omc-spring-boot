@@ -99,7 +99,7 @@ public class ParseUtil {
 	 * @param produtoEntities the produto entities
 	 * @return the list
 	 */
-	public static List<ProdutoType> parseListaProdutoEntityToType(List<ProdutoEntity> produtoEntities) {
+	public static List<ProdutoType> parseListaProdutoEntityToType(final List<ProdutoEntity> produtoEntities) {
 		List<ProdutoType> produtoTypes = null;
 		if(CollectionUtils.isNotEmpty(produtoEntities)){
 			produtoTypes = new ArrayList<>();
@@ -108,6 +108,52 @@ public class ParseUtil {
 			}
 		}
 		return produtoTypes;
+	}
+
+
+	/**
+	 * Parses the produto type to entity.
+	 *
+	 * @param produtoType the produto type
+	 * @return the produto entity
+	 */
+	public static ProdutoEntity parseProdutoTypeToEntity(final ProdutoType produtoType) {
+		final ProdutoEntity produtoEntity = new ProdutoEntity();
+		if(produtoType.getCodigo() != null){
+			produtoEntity.setCodigo(produtoType.getCodigo());
+		}
+		
+		produtoEntity.setNome(produtoType.getNome());
+		produtoEntity.setValor(produtoType.getValor());
+		produtoEntity.setQuantidade(produtoType.getQuantidade());
+		
+		if(produtoType.getDataCadastro() != null){
+			produtoEntity.setDataCadastro(produtoType.getDataCadastro());
+		}
+		
+		if(produtoType.getDataUltimaAlteracao() != null){
+			produtoEntity.setDataUltimaAlteracao(produtoType.getDataUltimaAlteracao());
+		}		
+		return produtoEntity;
+	}
+
+
+	/**
+	 * Parses the produto entity type.
+	 *
+	 * @param produtoEntity the produto entity
+	 * @return the produto type
+	 */
+	public static ProdutoType parseProdutoEntityType(final ProdutoEntity produtoEntity) {
+		final ProdutoType produtoType = new ProdutoType();
+		produtoType.setCodigo(produtoEntity.getCodigo());				
+		produtoType.setNome(produtoEntity.getNome());
+		produtoType.setValor(produtoEntity.getValor());
+		produtoType.setQuantidade(produtoEntity.getQuantidade());	
+		produtoType.setDataCadastro(produtoEntity.getDataCadastro());
+		produtoType.setDataUltimaAlteracao(produtoEntity.getDataUltimaAlteracao());
+
+		return produtoType;
 	}
 
 }

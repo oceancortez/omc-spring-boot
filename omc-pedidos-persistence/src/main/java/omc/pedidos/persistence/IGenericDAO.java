@@ -13,7 +13,7 @@ public interface IGenericDAO<T, PK> {
 	
 	abstract T findById(final PK primaryKey) throws IllegalStateException, IllegalArgumentException;
 
-	abstract void update(final T entity) throws IllegalStateException, IllegalArgumentException, TransactionRequiredException;
+	abstract T update(final T entity) throws IllegalStateException, IllegalArgumentException, TransactionRequiredException;
 
 	abstract void delete(final T entity) throws IllegalStateException, IllegalArgumentException, TransactionRequiredException, PersistenceException;
 	

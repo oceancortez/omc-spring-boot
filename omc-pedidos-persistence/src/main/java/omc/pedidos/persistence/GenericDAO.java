@@ -48,10 +48,11 @@ public abstract class GenericDAO<T, PK>  implements IGenericDAO<T, PK>{
 		return (T) manager.find(entityClass, primaryKey);
 	}
 
-	public void update(final T entity)
+	public T update(final T entity)
 			throws IllegalStateException, IllegalArgumentException, TransactionRequiredException {
 		manager.merge(entity);
 		manager.flush();
+		return entity;
 	}
 
 	public void delete(final T entity)

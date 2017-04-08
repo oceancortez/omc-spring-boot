@@ -19,4 +19,6 @@ public interface IProdutoBusiness {
 
 	List<ProdutoType> listarProdutos();
 
+	ProdutoType atualizarProduto(String produtosJson);
+
 }

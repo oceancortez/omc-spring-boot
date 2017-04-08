@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import omc.pedidos.business.type.ParseUtil;
+import omc.pedidos.business.type.PedidoType;
 import omc.pedidos.business.type.ProdutoType;
 import omc.pedidos.entity.PedidoEntity;
 import omc.pedidos.entity.ProdutoEntity;
@@ -37,14 +38,18 @@ public class ProdutoBusiness implements IProdutoBusiness{
 	@Override
 	public ProdutoType cadastrarProduto(final String cliente) {
 		ProdutoEntity produtoEntity = new ProdutoEntity();
-		final ProdutoType produtoType = new ProdutoType();
+	    ProdutoType produtoType = null;
 		
 		final ObjectMapper mapper  = new ObjectMapper();
 		
 		Object parse = null;
 
 			try {
-				parse = mapper.readValue(cliente, PedidoEntity.class);
+				parse = mapper.readValue(cliente, ProdutoType.class);
+				produtoType = (ProdutoType) parse;
+				
+				produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
+
 			} catch (JsonParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -56,11 +61,63 @@ public class ProdutoBusiness implements IProdutoBusiness{
 				e.printStackTrace();
 			}	
 		
-			produtoEntity = (ProdutoEntity) parse;
-			ProdutoEntity produtoSalvo = null;
+
 		try {
-			produtoSalvo = produtoDAO.persist(produtoEntity);
-			produtoSalvo = produtoDAO.findById(produtoEntity.getCodigo());
+			produtoEntity = produtoDAO.persist(produtoEntity);
+			produtoEntity = produtoDAO.findById(produtoEntity.getCodigo());
+			if(produtoEntity.getCodigo() != null){
+				produtoType = new ProdutoType();
+				produtoType.setCodigo(produtoEntity.getCodigo());
+			}
+		} catch (EntityExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransactionRequiredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return produtoType;
+	}
+	
+	@Override
+	public ProdutoType atualizarProduto(final String cliente) {
+		ProdutoEntity produtoEntity = new ProdutoEntity();
+	    ProdutoType produtoType = null;
+		
+		final ObjectMapper mapper  = new ObjectMapper();
+		
+		Object parse = null;
+
+			try {
+				parse = mapper.readValue(cliente, ProdutoType.class);
+				produtoType = (ProdutoType) parse;
+				
+				produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
+
+			} catch (JsonParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		
+
+		try {
+			produtoEntity = produtoDAO.update(produtoEntity);
+			
+			produtoType = ParseUtil.parseProdutoEntityType(produtoEntity);
+			
 		} catch (EntityExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
