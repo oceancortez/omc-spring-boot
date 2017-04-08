@@ -82,7 +82,7 @@ select * from omc.cliente;
 
 --  INSERT INTO `OMC`.`PRODUTO`(`NOMPRD`) VALUES ('PRODUTO DO OXI');
 select * from omc.PRODUTO;
-
+-- delete from omc.produto where codprd = 1;
 -- delete from omc.produto where codprd > 0;
 
 -- INSERT INTO `omc`.`pedido` (`CODPED`, `CODCLI`, `CODPRD`) VALUES ('1', '1', '1');
@@ -100,6 +100,7 @@ where c.codcli = 3;
 -- change de password
 -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;
 
+-- Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (`omc`.`pedido`, CONSTRAINT `FK_CODPRD` FOREIGN KEY (`CODPRD`) REFERENCES `produto` (`CODPRD`) ON DELETE NO ACTION ON UPDATE NO ACTION)
 
 
 

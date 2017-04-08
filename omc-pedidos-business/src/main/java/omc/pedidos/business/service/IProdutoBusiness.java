@@ -15,10 +15,12 @@ public interface IProdutoBusiness {
 
 	List<ProdutoType> listPorNome(String nome);
 
-	ProdutoType cadastrarProduto(String produto);
+	String cadastrarProduto(String produto);
 
 	List<ProdutoType> listarProdutos();
 
 	ProdutoType atualizarProduto(String produtosJson);
+
+	String excluirProduto(String produtosJson);
 
 }

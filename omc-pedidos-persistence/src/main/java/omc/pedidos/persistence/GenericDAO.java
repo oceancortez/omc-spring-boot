@@ -57,7 +57,11 @@ public abstract class GenericDAO<T, PK>  implements IGenericDAO<T, PK>{
 
 	public void delete(final T entity)
 			throws IllegalStateException, IllegalArgumentException, TransactionRequiredException, PersistenceException {
-		manager.remove(entity);
+		if(entity == null){
+			throw new NullPointerException("Entidade não pode estar null");
+		}
+		Object object = manager.merge(entity);
+		manager.remove(object);
 		manager.flush();
 	}
 	

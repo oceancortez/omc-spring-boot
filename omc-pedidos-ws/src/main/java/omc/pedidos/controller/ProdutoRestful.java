@@ -20,10 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import omc.pedidos.business.service.IProdutoBusiness;
 import omc.pedidos.business.type.ProdutoType;
 
@@ -88,9 +88,9 @@ public class ProdutoRestful {
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response cadastar(String produtosJson) throws JsonProcessingException{
 		
-		ProdutoType produto = this.produtoBusiness.cadastrarProduto(produtosJson);
+		String produto = this.produtoBusiness.cadastrarProduto(produtosJson);
 		
-		if(produto == null){
+		if(StringUtils.isEmpty(produto)){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
 		
@@ -122,7 +122,7 @@ public class ProdutoRestful {
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response deletar(String produtosJson) throws JsonProcessingException{
 		
-		ProdutoType produto = this.produtoBusiness.cadastrarProduto(produtosJson);
+		String produto = this.produtoBusiness.excluirProduto(produtosJson);
 		
 		if(produto == null){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();

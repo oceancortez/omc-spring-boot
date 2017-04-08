@@ -108,7 +108,5 @@ public class ProdutoType implements Serializable{
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
 	}
 	
-	
-	
 
 }

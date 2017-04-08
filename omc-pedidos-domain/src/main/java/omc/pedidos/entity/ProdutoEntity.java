@@ -152,5 +152,5 @@ public class ProdutoEntity implements Serializable{
 	 */
 	public void setPedidoEntities(List<PedidoEntity> pedidoEntities) {
 		this.pedidoEntities = pedidoEntities;
-	}
+	}	
 }
