@@ -51,6 +51,9 @@ CREATE TABLE `omc`.`pedido` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+ALTER TABLE `omc`.`pedido` 
+ADD COLUMN `NOMPED` VARCHAR(45) NOT NULL AFTER `CODPED`;
+
 
 -- DROP TABLE PEDIDO;
 -- DROP TABLE CLIENTE;
@@ -58,11 +61,10 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
--- INSERT INTO `omc`.`cliente` (`NOMCLI`) VALUES ('OXI LTDA');
+ -- INSERT INTO `omc`.`cliente` (`NOMCLI`) VALUES ('OXI LTDA');
 select * from omc.cliente;
 
-
--- INSERT INTO `OMC`.`PRODUTO`(`NOMPRD`) VALUES ('PRODUTO DO OXI');
+--  INSERT INTO `OMC`.`PRODUTO`(`NOMPRD`) VALUES ('PRODUTO DO OXI');
 select * from omc.PRODUTO;
 
 delete from omc.produto where codprd > 0;
@@ -73,20 +75,11 @@ select * from omc.pedido;
 delete from omc.pedido where codped > 0;
 
 
-
+select * from omc.cliente c;
 
 select * from omc.cliente c
 left join omc.pedido ped  on ped.codcli = c.codcli
-
 where c.codcli = 3;
 
 -- change de password
 -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;
-
-
-
-
-
-
-
-
