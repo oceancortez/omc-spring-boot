@@ -1,17 +1,18 @@
 package omc.pedidos.entity;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  * @author ocean
@@ -20,11 +21,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pedido", schema = "omc")
-public class PedidoEntity {
+public class PedidoEntity implements Serializable{
 	
-	@Id
-    @Column(name = "CODPED")
-	private Long codigo;
+
+	private static final long serialVersionUID = 6428635798565412036L;
+
+	/***
+	 * <b>Sobrescrevendo o atributo java pelo nome da tabela<b>
+	 */
+	@AttributeOverrides({
+		@AttributeOverride(name = "codigoPedido", column = @Column(name = "CODPED", nullable = false)),
+		@AttributeOverride(name = "codigoProduto", column = @Column(name = "CODPRD", nullable = false)) })
+	@EmbeddedId
+	private PedidoEntityPK id;
 	
 	@Column(name = "NOMPED")
 	private String nome;
@@ -33,43 +42,47 @@ public class PedidoEntity {
 	@JoinColumn(name = "CODCLI")
 	private ClienteEntity clienteEntity;
 	
-	@OneToMany(mappedBy = "pedidoEntity" , cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<ProdutoEntity> produtoEntities;
+	/***
+	 * <b>Muitos pedidos podem ter um produto<b>
+	 */
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "CODPRD", nullable = false, insertable = false, updatable = false)
+	private ProdutoEntity produtoEntity;
 	
+	@Temporal(javax.persistence.TemporalType.DATE)
 	@Column(name = "DATCADPED")
 	private Date dataCadastro;
 	
+	@Temporal(javax.persistence.TemporalType.DATE)
 	@Column(name = "DATULTALTPED")
 	private Date dataUltimaAlteracao;
-
+		
 	/**
-	 * @return the codigo
+	 * @return the id
 	 */
-	public Long getCodigo() {
-		return codigo;
+	public PedidoEntityPK getId() {
+		return id;
 	}
 
 	/**
-	 * @param codigo the codigo to set
+	 * @param id the id to set
 	 */
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-	
-	
-
-	/**
-	 * @return the produtoEntities
-	 */
-	public List<ProdutoEntity> getProdutoEntities() {
-		return produtoEntities;
+	public void setId(PedidoEntityPK id) {
+		this.id = id;
 	}
 
 	/**
-	 * @param produtoEntities the produtoEntities to set
+	 * @return the produtoEntity
 	 */
-	public void setProdutoEntities(List<ProdutoEntity> produtoEntities) {
-		this.produtoEntities = produtoEntities;
+	public ProdutoEntity getProdutoEntity() {
+		return produtoEntity;
+	}
+
+	/**
+	 * @param produtoEntity the produtoEntity to set
+	 */
+	public void setProdutoEntity(ProdutoEntity produtoEntity) {
+		this.produtoEntity = produtoEntity;
 	}
 
 	/**
@@ -128,7 +141,5 @@ public class PedidoEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
 
 }

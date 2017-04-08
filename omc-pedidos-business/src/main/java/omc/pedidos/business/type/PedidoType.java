@@ -23,6 +23,8 @@ public class PedidoType implements Serializable{
 	
 	private List<ProdutoType> produtoTypes;
 	
+	private ProdutoType produtoType;
+	
 	private ClienteType clienteType;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
@@ -113,6 +115,20 @@ public class PedidoType implements Serializable{
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	/**
+	 * @return the produtoType
+	 */
+	public ProdutoType getProdutoType() {
+		return produtoType;
+	}
+
+	/**
+	 * @param produtoType the produtoType to set
+	 */
+	public void setProdutoType(ProdutoType produtoType) {
+		this.produtoType = produtoType;
 	}
 	
 	

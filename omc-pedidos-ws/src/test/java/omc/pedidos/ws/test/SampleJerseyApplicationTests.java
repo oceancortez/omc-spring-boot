@@ -40,5 +40,17 @@ public class SampleJerseyApplicationTests {
 				String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
+	
+	/**
+	 * Gets the all pedidos.
+	 *
+	 * @return the all pedidos
+	 */
+	@Test
+	public void getAllPedidos() {
+		ResponseEntity<String> entity = this.restTemplate.getForEntity("/rest/pedido/listar-pedidos",
+				String.class);
+		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
 
 }

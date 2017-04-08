@@ -29,16 +29,16 @@ public class PedidoBusiness implements IPedidoBusiness{
 	private IPedidoDAO pedidoDAO;
 
 	@Override
-	public List<PedidoType> listPorNome(String nome) {
+	public List<PedidoType> listPorNome(final String nome) {
 		return null;
 	}
 
 	@Override
-	public PedidoType cadastrarPedido(String cliente) {
+	public PedidoType cadastrarPedido(final String cliente) {
 		PedidoEntity pedidoEntity = new PedidoEntity();
-		PedidoType pedidoType = new PedidoType();
+		final PedidoType pedidoType = new PedidoType();
 		
-		ObjectMapper mapper  = new ObjectMapper();
+		final ObjectMapper mapper  = new ObjectMapper();
 		
 		Object parse = null;
 
@@ -59,7 +59,7 @@ public class PedidoBusiness implements IPedidoBusiness{
 			PedidoEntity pedidoSalvo = null;
 		try {
 			pedidoSalvo = pedidoDAO.persist(pedidoEntity);
-			pedidoSalvo = pedidoDAO.findById(pedidoEntity.getCodigo());
+			pedidoSalvo = pedidoDAO.findById(pedidoEntity.getId().getCodigoPedido());
 		} catch (EntityExistsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,11 +77,10 @@ public class PedidoBusiness implements IPedidoBusiness{
 		return pedidoType;
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public List<PedidoType> listarPedidos() {
 		List<PedidoEntity> pedidoEntities = pedidoDAO.findAll();
-		List<PedidoType> pedidoTypes = ParseUtil.parseListaPedidoToType(pedidoEntities);
+		List<PedidoType> pedidoTypes = ParseUtil.parseListaPedidoEntityToType(pedidoEntities);
 		return pedidoTypes;
 	}
 

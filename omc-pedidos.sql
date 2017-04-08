@@ -54,6 +54,10 @@ DEFAULT CHARACTER SET = utf8;
 ALTER TABLE `omc`.`pedido` 
 ADD COLUMN `NOMPED` VARCHAR(45) NOT NULL AFTER `CODPED`;
 
+ALTER TABLE `omc`.`pedido` 
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`CODPED`, `CODPRD`);
+
 
 -- DROP TABLE PEDIDO;
 -- DROP TABLE CLIENTE;
@@ -67,12 +71,12 @@ select * from omc.cliente;
 --  INSERT INTO `OMC`.`PRODUTO`(`NOMPRD`) VALUES ('PRODUTO DO OXI');
 select * from omc.PRODUTO;
 
-delete from omc.produto where codprd > 0;
+-- delete from omc.produto where codprd > 0;
 
 -- INSERT INTO `omc`.`pedido` (`CODPED`, `CODCLI`, `CODPRD`) VALUES ('1', '1', '1');
 select * from omc.pedido;
 
-delete from omc.pedido where codped > 0;
+-- delete from omc.pedido where codped > 0;
 
 
 select * from omc.cliente c;
