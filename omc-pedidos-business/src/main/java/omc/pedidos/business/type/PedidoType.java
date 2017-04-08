@@ -113,8 +113,6 @@ public class PedidoType implements Serializable{
 	 */
 	public void setProdutoType(ProdutoType produtoType) {
 		this.produtoType = produtoType;
-	}
-	
-	
+	}	
 
 }

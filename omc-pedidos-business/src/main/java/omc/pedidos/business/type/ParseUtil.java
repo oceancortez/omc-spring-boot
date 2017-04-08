@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import omc.pedidos.entity.ClienteEntity;
 import omc.pedidos.entity.PedidoEntity;
+import omc.pedidos.entity.ProdutoEntity;
 
 
 /**
@@ -30,28 +32,29 @@ public class ParseUtil {
 		pedidoType.setDataUltimaAlteracao(pedidoEntity.getDataUltimaAlteracao());
 		
 		if(pedidoEntity.getClienteEntity() != null){
-			pedidoType.setClienteType(parseClienteEntityToType(pedidoEntity));
+			pedidoType.setClienteType(parseClienteEntityToType(pedidoEntity.getClienteEntity()));
 		}
 		
 		if(pedidoEntity.getProdutoEntity() != null){
-			pedidoType.setProdutoType(parseProdutoEntityToType(pedidoEntity));
+			pedidoType.setProdutoType(parseProdutoEntityToType(pedidoEntity.getProdutoEntity()));
 		}
 		
 		return pedidoType;
 	}
 
+
 	/**
 	 * Parses the cliente entity to type.
 	 *
-	 * @param pedidoEntity the pedido entity
+	 * @param clienteEntity the cliente entity
 	 * @return the cliente type
 	 */
-	private static ClienteType parseClienteEntityToType(final PedidoEntity pedidoEntity) {
+	private static ClienteType parseClienteEntityToType(final ClienteEntity clienteEntity) {
 		final ClienteType clienteType = new ClienteType();
-		clienteType.setCodigo(pedidoEntity.getClienteEntity().getCodigo());
-		clienteType.setNome(pedidoEntity.getClienteEntity().getNome());
-		clienteType.setDataCadastro(pedidoEntity.getClienteEntity().getDataCadastro());
-		clienteType.setDataUltimaAlteracao(pedidoEntity.getClienteEntity().getDataUltimaAlteracao());
+		clienteType.setCodigo(clienteEntity.getCodigo());
+		clienteType.setNome(clienteEntity.getNome());
+		clienteType.setDataCadastro(clienteEntity.getDataCadastro());
+		clienteType.setDataUltimaAlteracao(clienteEntity.getDataUltimaAlteracao());
 		return clienteType;
 	}
 	
@@ -59,17 +62,17 @@ public class ParseUtil {
 	/**
 	 * Parses the produto entity to type.
 	 *
-	 * @param pedidoEntity the pedido entity
+	 * @param produtoEntity the produto entity
 	 * @return the produto type
 	 */
-	private static ProdutoType parseProdutoEntityToType(final PedidoEntity pedidoEntity) {
+	private static ProdutoType parseProdutoEntityToType(final ProdutoEntity produtoEntity) {
 		final ProdutoType produtoType = new ProdutoType();
-		produtoType.setCodigo(pedidoEntity.getProdutoEntity().getCodigo());
-		produtoType.setNome(pedidoEntity.getProdutoEntity().getNome());
-		produtoType.setQuantidade(pedidoEntity.getProdutoEntity().getQuantidade());
-		produtoType.setValor(pedidoEntity.getProdutoEntity().getValor());
-		produtoType.setDataCadastro(pedidoEntity.getProdutoEntity().getDataCadastro());
-		produtoType.setDataUltimaAlteracao(pedidoEntity.getProdutoEntity().getDataUltimaAlteracao());
+		produtoType.setCodigo(produtoEntity.getCodigo());
+		produtoType.setNome(produtoEntity.getNome());
+		produtoType.setQuantidade(produtoEntity.getQuantidade());
+		produtoType.setValor(produtoEntity.getValor());
+		produtoType.setDataCadastro(produtoEntity.getDataCadastro());
+		produtoType.setDataUltimaAlteracao(produtoEntity.getDataUltimaAlteracao());
 		return produtoType;
 	}
 	
@@ -88,6 +91,23 @@ public class ParseUtil {
 			}			
 		}
 		return pedidoTypes;
+	}
+
+	/**
+	 * Parses the lista produto entity to type.
+	 *
+	 * @param produtoEntities the produto entities
+	 * @return the list
+	 */
+	public static List<ProdutoType> parseListaProdutoEntityToType(List<ProdutoEntity> produtoEntities) {
+		List<ProdutoType> produtoTypes = null;
+		if(CollectionUtils.isNotEmpty(produtoEntities)){
+			produtoTypes = new ArrayList<>();
+			for (int i = 0; i < produtoEntities.size(); i++) {
+				produtoTypes.add(parseProdutoEntityToType(produtoEntities.get(i)));
+			}
+		}
+		return produtoTypes;
 	}
 
 }

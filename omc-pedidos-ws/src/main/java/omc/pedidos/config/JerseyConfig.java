@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import omc.pedidos.controller.ClienteRestful;
 import omc.pedidos.controller.PedidoRestful;
+import omc.pedidos.controller.ProdutoRestful;
 
 @Component
 @ApplicationPath("/rest")
@@ -31,5 +32,6 @@ public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 		register(ClienteRestful.class);
 		register(PedidoRestful.class);
+		register(ProdutoRestful.class);
 	}
 }
