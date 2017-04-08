@@ -5,7 +5,6 @@ package omc.pedidos.business.type;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -19,19 +18,18 @@ public class PedidoType implements Serializable{
 
 	private Long codigo;
 	
-	private String nome;
-	
-	private List<ProdutoType> produtoTypes;
-	
-	private ProdutoType produtoType;
-	
-	private ClienteType clienteType;
+	private String nome;	
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date dataCadastro;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date dataUltimaAlteracao;
+	
+	private ProdutoType produtoType;
+	
+	private ClienteType clienteType;
+
 
 	/**
 	 * @return the codigo
@@ -45,20 +43,6 @@ public class PedidoType implements Serializable{
 	 */
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	/**
-	 * @return the produtoType
-	 */
-	public List<ProdutoType> getProdutoTypes() {
-		return produtoTypes;
-	}
-
-	/**
-	 * @param produtoType the produtoType to set
-	 */
-	public void setProdutoTypes(List<ProdutoType> produtoType) {
-		this.produtoTypes = produtoType;
 	}
 
 	/**
