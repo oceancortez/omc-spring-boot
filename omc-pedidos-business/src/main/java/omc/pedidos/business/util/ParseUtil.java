@@ -1,10 +1,16 @@
-package omc.pedidos.business.type;
+package omc.pedidos.business.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import omc.pedidos.business.type.ClienteType;
+import omc.pedidos.business.type.PedidoType;
+import omc.pedidos.business.type.ProdutoType;
 import omc.pedidos.entity.ClienteEntity;
 import omc.pedidos.entity.PedidoEntity;
 import omc.pedidos.entity.ProdutoEntity;
@@ -154,6 +160,27 @@ public class ParseUtil {
 		produtoType.setDataUltimaAlteracao(produtoEntity.getDataUltimaAlteracao());
 
 		return produtoType;
+	}
+	
+	/**
+	 * Parses the json to type.
+	 *
+	 * @param object the object
+	 * @param json the json
+	 * @return the object
+	 */
+	public static Object parseJsonToType(final String json, final Object object){
+		final ObjectMapper mapper  = new ObjectMapper();		
+		Object parse = null;
+
+				try {
+					parse = mapper.readValue(json, object.getClass());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+		return parse;
 	}
 
 }

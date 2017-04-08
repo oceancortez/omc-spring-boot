@@ -22,7 +22,7 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import omc.pedidos.business.IPedidoBusiness;
+import omc.pedidos.business.service.IPedidoBusiness;
 import omc.pedidos.business.type.PedidoType;
 
 /**

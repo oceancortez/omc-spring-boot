@@ -1,7 +1,4 @@
-/**
- * 
- */
-package omc.pedidos.business;
+package omc.pedidos.business.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,34 +13,37 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import omc.pedidos.entity.ClienteEntity;
-import omc.pedidos.persistence.IClienteDAO;
+import omc.pedidos.business.type.PedidoType;
+import omc.pedidos.business.util.ParseUtil;
+import omc.pedidos.entity.PedidoEntity;
+import omc.pedidos.persistence.IPedidoDAO;
 
 /**
  * @author 579535
  *
  */
 @Component
-public class ClienteBusiness implements IClienteBusiness{
+public class PedidoBusiness implements IPedidoBusiness{
 	
 	@Autowired
-	private IClienteDAO clienteDAO;
+	private IPedidoDAO pedidoDAO;
 
 	@Override
-	public List<ClienteEntity> listPorNome(String nome) {
-		return clienteDAO.listPorNome(nome);
+	public List<PedidoType> listPorNome(final String nome) {
+		return null;
 	}
 
 	@Override
-	public ClienteEntity cadastrarCliente(String cliente) {
-		ClienteEntity clienteEntity = new ClienteEntity();
+	public PedidoType cadastrarPedido(final String cliente) {
+		PedidoEntity pedidoEntity = new PedidoEntity();
+		final PedidoType pedidoType = new PedidoType();
 		
-		ObjectMapper mapper  = new ObjectMapper();
+		final ObjectMapper mapper  = new ObjectMapper();
 		
 		Object parse = null;
 
 			try {
-				parse = mapper.readValue(cliente, ClienteEntity.class);
+				parse = mapper.readValue(cliente, PedidoEntity.class);
 			} catch (JsonParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,18 +53,14 @@ public class ClienteBusiness implements IClienteBusiness{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-	
+			}	
 		
-		clienteEntity = (ClienteEntity) parse;
-		ClienteEntity clienteSalvo = null;
+			pedidoEntity = (PedidoEntity) parse;
+			PedidoEntity pedidoSalvo = null;
 		try {
-			clienteSalvo = clienteDAO.persist(clienteEntity);
-			clienteSalvo = clienteDAO.findById(clienteSalvo.getCodigo());
+			pedidoSalvo = pedidoDAO.persist(pedidoEntity);
+			pedidoSalvo = pedidoDAO.findById(pedidoEntity.getId().getCodigoPedido());
 		} catch (EntityExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransactionRequiredException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
@@ -73,14 +69,19 @@ public class ClienteBusiness implements IClienteBusiness{
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (TransactionRequiredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return clienteSalvo;
+
+		return pedidoType;
 	}
 
 	@Override
-	public List<ClienteEntity> listarClientes() {
-		return clienteDAO.findAll();
+	public List<PedidoType> listarPedidos() {
+		List<PedidoEntity> pedidoEntities = pedidoDAO.findAll();
+		List<PedidoType> pedidoTypes = ParseUtil.parseListaPedidoEntityToType(pedidoEntities);
+		return pedidoTypes;
 	}
 
 }

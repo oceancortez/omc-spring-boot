@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.business;
+package omc.pedidos.business.service;
 
 import java.util.List;
 

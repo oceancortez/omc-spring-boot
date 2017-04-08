@@ -1,4 +1,4 @@
-package omc.pedidos.business;
+package omc.pedidos.business.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,10 +13,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import omc.pedidos.business.type.ParseUtil;
-import omc.pedidos.business.type.PedidoType;
 import omc.pedidos.business.type.ProdutoType;
-import omc.pedidos.entity.PedidoEntity;
+import omc.pedidos.business.util.ParseUtil;
 import omc.pedidos.entity.ProdutoEntity;
 import omc.pedidos.persistence.IProdutoDAO;
 
@@ -39,28 +37,9 @@ public class ProdutoBusiness implements IProdutoBusiness{
 	public ProdutoType cadastrarProduto(final String cliente) {
 		ProdutoEntity produtoEntity = new ProdutoEntity();
 	    ProdutoType produtoType = null;
-		
-		final ObjectMapper mapper  = new ObjectMapper();
-		
-		Object parse = null;
 
-			try {
-				parse = mapper.readValue(cliente, ProdutoType.class);
-				produtoType = (ProdutoType) parse;
-				
-				produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
-
-			} catch (JsonParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		
+		produtoType = (ProdutoType) ParseUtil.parseJsonToType(cliente, new ProdutoType());			
+		produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
 
 		try {
 			produtoEntity = produtoDAO.persist(produtoEntity);
@@ -90,28 +69,9 @@ public class ProdutoBusiness implements IProdutoBusiness{
 	public ProdutoType atualizarProduto(final String cliente) {
 		ProdutoEntity produtoEntity = new ProdutoEntity();
 	    ProdutoType produtoType = null;
-		
-		final ObjectMapper mapper  = new ObjectMapper();
-		
-		Object parse = null;
-
-			try {
-				parse = mapper.readValue(cliente, ProdutoType.class);
-				produtoType = (ProdutoType) parse;
-				
-				produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
-
-			} catch (JsonParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-		
+	    
+		produtoType = (ProdutoType) ParseUtil.parseJsonToType(cliente, new ProdutoType());		
+		produtoEntity = ParseUtil.parseProdutoTypeToEntity(produtoType);
 
 		try {
 			produtoEntity = produtoDAO.update(produtoEntity);
