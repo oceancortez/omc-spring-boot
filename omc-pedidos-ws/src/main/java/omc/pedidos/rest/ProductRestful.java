@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.controller;
+package omc.pedidos.rest;
 
 import java.util.Date;
 import java.util.List;
@@ -24,52 +24,52 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import omc.pedidos.business.service.IProdutoBusiness;
-import omc.pedidos.business.type.ProdutoType;
+import omc.pedidos.business.service.IProductBusiness;
+import omc.pedidos.business.type.ProductType;
 
 /**
  * @author ocean
  *
  */
 @Component
-@Path("/produto")
-public class ProdutoRestful {
+@Path("/product")
+public class ProductRestful {
 	
 	@Autowired
-	IProdutoBusiness produtoBusiness;
+	IProductBusiness productBusiness;
 		
 	@GET
-	@Path("/listar-por")
+	@Path("/list-by")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
-	public Response getProdutosByName(@QueryParam("nome")String nome) throws JsonProcessingException{
+	public Response getProductsByName(@QueryParam("nome")String name) throws JsonProcessingException{
 		
-		final List<ProdutoType> produtos = this.produtoBusiness.listPorNome(nome);
+		final List<ProductType> productTypes = this.productBusiness.listByName(name);
 		
-		if(CollectionUtils.isEmpty(produtos)){
-			return Response.status(200).entity("Não foram encotrados registros com o nome = ".concat(nome)).build();
+		if(CollectionUtils.isEmpty(productTypes)){
+			return Response.status(200).entity("Não foram encotrados registros com o nome = ".concat(name)).build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String array = mapper.writeValueAsString(produtos);
+		String array = mapper.writeValueAsString(productTypes);
 		
 		return Response.status(200).entity(array).build();
 	}
 	
 	@GET
-	@Path("/listar-produtos")
+	@Path("/list-products")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
-	public Response getProdutos() throws JsonProcessingException{
+	public Response getProducts() throws JsonProcessingException{
 		
-		final List<ProdutoType> produtos = this.produtoBusiness.listarProdutos();
+		final List<ProductType> productTypes = this.productBusiness.listProducts();
 		
-		if(CollectionUtils.isEmpty(produtos)){
+		if(CollectionUtils.isEmpty(productTypes)){
 			return Response.status(200).entity("Não foram encotrados registros").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String array = mapper.writeValueAsString(produtos);
+		String array = mapper.writeValueAsString(productTypes);
 		
 		return Response.status(200).entity(array).build();
 	}
@@ -84,52 +84,52 @@ public class ProdutoRestful {
 	}
 	
 	@POST
-	@Path("/cadastrar")
+	@Path("/create")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response cadastar(String produtosJson) throws JsonProcessingException{
+	public Response create(String produtosJson) throws JsonProcessingException{
 		
-		String produto = this.produtoBusiness.cadastrarProduto(produtosJson);
+		String product = this.productBusiness.createProduct(produtosJson);
 		
-		if(StringUtils.isEmpty(produto)){
+		if(StringUtils.isEmpty(product)){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(produto);
+		String retorno = mapper.writeValueAsString(product);
 		
 		return Response.status(200).entity(retorno).build();
 	}
 	
 	@PUT
-	@Path("/atualizar")
+	@Path("/update")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response atualizar(String produtosJson) throws JsonProcessingException{
+	public Response update(String productJson) throws JsonProcessingException{
 		
-		ProdutoType produto = this.produtoBusiness.atualizarProduto(produtosJson);
+		ProductType productType = this.productBusiness.updateProduct(productJson);
 		
-		if(produto == null){
+		if(productType == null){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(produto);
+		String retorno = mapper.writeValueAsString(productType);
 		
 		return Response.status(200).entity(retorno).build();
 	}
 	
 	@DELETE
-	@Path("/deletar")
+	@Path("/delete")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response deletar(String produtosJson) throws JsonProcessingException{
+	public Response delete(String productJson) throws JsonProcessingException{
 		
-		String produto = this.produtoBusiness.excluirProduto(produtosJson);
+		String product = this.productBusiness.deleteProduct(productJson);
 		
-		if(produto == null){
+		if(product == null){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(produto);
+		String retorno = mapper.writeValueAsString(product);
 		
 		return Response.status(200).entity(retorno).build();
 	}

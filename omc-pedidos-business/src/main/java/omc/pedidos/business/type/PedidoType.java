@@ -26,7 +26,7 @@ public class PedidoType implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date dataUltimaAlteracao;
 	
-	private ProdutoType produtoType;
+	private ProductType produtoType;
 	
 	private ClienteType clienteType;
 
@@ -104,14 +104,14 @@ public class PedidoType implements Serializable{
 	/**
 	 * @return the produtoType
 	 */
-	public ProdutoType getProdutoType() {
+	public ProductType getProdutoType() {
 		return produtoType;
 	}
 
 	/**
 	 * @param produtoType the produtoType to set
 	 */
-	public void setProdutoType(ProdutoType produtoType) {
+	public void setProdutoType(ProductType produtoType) {
 		this.produtoType = produtoType;
 	}	
 

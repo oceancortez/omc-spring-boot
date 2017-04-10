@@ -21,9 +21,9 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
 
-import omc.pedidos.controller.ClienteRestful;
-import omc.pedidos.controller.PedidoRestful;
-import omc.pedidos.controller.ProdutoRestful;
+import omc.pedidos.rest.ClienteRestful;
+import omc.pedidos.rest.PedidoRestful;
+import omc.pedidos.rest.ProductRestful;
 
 @Component
 @ApplicationPath("/rest")
@@ -32,6 +32,6 @@ public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 		register(ClienteRestful.class);
 		register(PedidoRestful.class);
-		register(ProdutoRestful.class);
+		register(ProductRestful.class);
 	}
 }

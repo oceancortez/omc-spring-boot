@@ -58,14 +58,16 @@ ALTER TABLE `omc`.`pedido`
 ADD COLUMN `NOMPED` VARCHAR(45) NOT NULL AFTER `CODPED`;
 
 ALTER TABLE `omc`.`pedido` 
+CHANGE COLUMN `CODPRD` `CODPRD` BIGINT(20) NOT NULL AFTER `CODPED`;
+
+ALTER TABLE `omc`.`pedido` 
 DROP PRIMARY KEY,
 ADD PRIMARY KEY (`CODPED`, `CODPRD`);
 
+ALTER TABLE `omc`.`produto` 
+ADD UNIQUE INDEX `NOMPRD_UNIQUE` (`NOMPRD` ASC);
 
-ALTER TABLE `omc`.`pedido` 
-CHANGE COLUMN `CODPRD` `CODPRD` BIGINT(20) NOT NULL AFTER `CODPED`;
-
-
+-- -----------------------------------------------------------------------------
 -- ALTER TABLE `omc`.`pedido` 
 -- DROP PRIMARY KEY,
 -- ADD PRIMARY KEY (`CODPED`);
@@ -83,7 +85,7 @@ select * from omc.cliente;
 --  INSERT INTO `OMC`.`PRODUTO`(`NOMPRD`) VALUES ('PRODUTO DO OXI');
 select * from omc.PRODUTO;
 -- delete from omc.produto where codprd = 1;
--- delete from omc.produto where codprd > 0;
+  -- delete from omc.produto where codprd > 28;
 
 -- INSERT INTO `omc`.`pedido` (`CODPED`, `CODCLI`, `CODPRD`) VALUES ('1', '1', '1');
 select * from omc.pedido;

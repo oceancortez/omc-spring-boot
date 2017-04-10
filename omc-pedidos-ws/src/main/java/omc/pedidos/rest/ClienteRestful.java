@@ -1,7 +1,7 @@
 /**
  * 
  */
-package omc.pedidos.controller;
+package omc.pedidos.rest;
 
 import java.util.Date;
 import java.util.List;
@@ -22,19 +22,19 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import omc.pedidos.business.service.IPedidoBusiness;
-import omc.pedidos.business.type.PedidoType;
+import omc.pedidos.business.service.IClienteBusiness;
+import omc.pedidos.entity.ClienteEntity;
 
 /**
  * @author ocean
  *
  */
 @Component
-@Path("/pedido")
-public class PedidoRestful {
+@Path("/cliente")
+public class ClienteRestful {
 	
 	@Autowired
-	IPedidoBusiness iPedidoBusiness;
+	IClienteBusiness iClienteBusiness;
 		
 	@GET
 	@Path("/listar-por")
@@ -42,32 +42,32 @@ public class PedidoRestful {
 	@Transactional(readOnly = true)
 	public Response getClientesByName(@QueryParam("nome")String nome) throws JsonProcessingException{
 		
-		final List<PedidoType> pedidos = this.iPedidoBusiness.listPorNome(nome);
+		final List<ClienteEntity> clientes = this.iClienteBusiness.listPorNome(nome);
 		
-		if(CollectionUtils.isEmpty(pedidos)){
+		if(CollectionUtils.isEmpty(clientes)){
 			return Response.status(200).entity("Não foram encotrados registros com o nome = ".concat(nome)).build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String array = mapper.writeValueAsString(pedidos);
+		String array = mapper.writeValueAsString(clientes);
 		
 		return Response.status(200).entity(array).build();
 	}
 	
 	@GET
-	@Path("/listar-pedidos")
+	@Path("/listar-clientes")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
 	public Response getClientes() throws JsonProcessingException{
 		
-		final List<PedidoType> pedidos = this.iPedidoBusiness.listarPedidos();
+		final List<ClienteEntity> clientes = this.iClienteBusiness.listarClientes();
 		
-		if(CollectionUtils.isEmpty(pedidos)){
+		if(CollectionUtils.isEmpty(clientes)){
 			return Response.status(200).entity("Não foram encotrados registros").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String array = mapper.writeValueAsString(pedidos);
+		String array = mapper.writeValueAsString(clientes);
 		
 		return Response.status(200).entity(array).build();
 	}
@@ -84,16 +84,16 @@ public class PedidoRestful {
 	@POST
 	@Path("/cadastrar")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response cadastar(String pedidosJson) throws JsonProcessingException{
+	public Response cadastar(String cliente) throws JsonProcessingException{
 		
-		PedidoType pedido = this.iPedidoBusiness.cadastrarPedido(pedidosJson);
+		ClienteEntity clienteEntity = this.iClienteBusiness.cadastrarCliente(cliente);
 		
-		if(pedido == null){
+		if(clienteEntity == null){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(pedido);
+		String retorno = mapper.writeValueAsString(clienteEntity);
 		
 		return Response.status(200).entity(retorno).build();
 	}

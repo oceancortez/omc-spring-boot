@@ -6,7 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class ProdutoType implements Serializable{
+public class ProductType implements Serializable{
 
 	private static final long serialVersionUID = 4463400574145900359L;
 

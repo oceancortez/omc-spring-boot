@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "produto", schema = "omc")
-public class ProdutoEntity implements Serializable{
+public class ProductEntity implements Serializable{
 
 	private static final long serialVersionUID = 6718909524788940370L;
 
@@ -48,11 +48,11 @@ public class ProdutoEntity implements Serializable{
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "produtoEntity")
 	private List<PedidoEntity> pedidoEntities;
 
-	public ProdutoEntity(String nomeProduto) {
+	public ProductEntity(String nomeProduto) {
 		nome = nomeProduto;
 	}
 
-	public ProdutoEntity() {
+	public ProductEntity() {
 		// TODO Auto-generated constructor stub
 	}
 

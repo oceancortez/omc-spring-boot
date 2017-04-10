@@ -47,7 +47,7 @@ public class PedidoEntity implements Serializable{
 	 */
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "CODPRD", nullable = false, insertable = false, updatable = false)
-	private ProdutoEntity produtoEntity;
+	private ProductEntity produtoEntity;
 	
 	@Temporal(javax.persistence.TemporalType.DATE)
 	@Column(name = "DATCADPED")
@@ -74,14 +74,14 @@ public class PedidoEntity implements Serializable{
 	/**
 	 * @return the produtoEntity
 	 */
-	public ProdutoEntity getProdutoEntity() {
+	public ProductEntity getProdutoEntity() {
 		return produtoEntity;
 	}
 
 	/**
 	 * @param produtoEntity the produtoEntity to set
 	 */
-	public void setProdutoEntity(ProdutoEntity produtoEntity) {
+	public void setProdutoEntity(ProductEntity produtoEntity) {
 		this.produtoEntity = produtoEntity;
 	}
 

@@ -10,10 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import omc.pedidos.business.type.ClienteType;
 import omc.pedidos.business.type.PedidoType;
-import omc.pedidos.business.type.ProdutoType;
+import omc.pedidos.business.type.ProductType;
 import omc.pedidos.entity.ClienteEntity;
 import omc.pedidos.entity.PedidoEntity;
-import omc.pedidos.entity.ProdutoEntity;
+import omc.pedidos.entity.ProductEntity;
 
 
 /**
@@ -71,8 +71,8 @@ public class ParseUtil {
 	 * @param produtoEntity the produto entity
 	 * @return the produto type
 	 */
-	private static ProdutoType parseProdutoEntityToType(final ProdutoEntity produtoEntity) {
-		final ProdutoType produtoType = new ProdutoType();
+	private static ProductType parseProdutoEntityToType(final ProductEntity produtoEntity) {
+		final ProductType produtoType = new ProductType();
 		produtoType.setCodigo(produtoEntity.getCodigo());
 		produtoType.setNome(produtoEntity.getNome());
 		produtoType.setQuantidade(produtoEntity.getQuantidade());
@@ -105,8 +105,8 @@ public class ParseUtil {
 	 * @param produtoEntities the produto entities
 	 * @return the list
 	 */
-	public static List<ProdutoType> parseListaProdutoEntityToType(final List<ProdutoEntity> produtoEntities) {
-		List<ProdutoType> produtoTypes = null;
+	public static List<ProductType> parseListProductEntityToType(final List<ProductEntity> produtoEntities) {
+		List<ProductType> produtoTypes = null;
 		if(CollectionUtils.isNotEmpty(produtoEntities)){
 			produtoTypes = new ArrayList<>();
 			for (int i = 0; i < produtoEntities.size(); i++) {
@@ -123,8 +123,8 @@ public class ParseUtil {
 	 * @param produtoType the produto type
 	 * @return the produto entity
 	 */
-	public static ProdutoEntity parseProdutoTypeToEntity(final ProdutoType produtoType) {
-		final ProdutoEntity produtoEntity = new ProdutoEntity();
+	public static ProductEntity parseProdutoTypeToEntity(final ProductType produtoType) {
+		final ProductEntity produtoEntity = new ProductEntity();
 		if(produtoType.getCodigo() != null){
 			produtoEntity.setCodigo(produtoType.getCodigo());
 		}
@@ -150,8 +150,8 @@ public class ParseUtil {
 	 * @param produtoEntity the produto entity
 	 * @return the produto type
 	 */
-	public static ProdutoType parseProdutoEntityType(final ProdutoEntity produtoEntity) {
-		final ProdutoType produtoType = new ProdutoType();
+	public static ProductType parseProdutoEntityType(final ProductEntity produtoEntity) {
+		final ProductType produtoType = new ProductType();
 		produtoType.setCodigo(produtoEntity.getCodigo());				
 		produtoType.setNome(produtoEntity.getNome());
 		produtoType.setValor(produtoEntity.getValor());
