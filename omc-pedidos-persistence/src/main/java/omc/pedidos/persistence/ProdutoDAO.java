@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import omc.pedidos.entity.ProductEntity;
@@ -19,6 +21,8 @@ import omc.pedidos.entity.ProductEntity;
  */
 @Repository
 public class ProdutoDAO extends GenericDAO<ProductEntity, Long> implements IProductDAO  {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProdutoDAO.class);
 	
 	@PersistenceContext
 	private EntityManager entityManager;

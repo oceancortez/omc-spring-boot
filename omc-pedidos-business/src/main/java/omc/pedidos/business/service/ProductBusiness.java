@@ -7,6 +7,8 @@ import javax.persistence.PersistenceException;
 import javax.transaction.TransactionRequiredException;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,8 @@ import omc.pedidos.persistence.IProductDAO;
  */
 @Component
 public class ProductBusiness implements IProductBusiness {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductBusiness.class);
 
 	@Autowired
 	private IProductDAO productDAO;
@@ -46,18 +50,18 @@ public class ProductBusiness implements IProductBusiness {
 			productEntity = productDAO.persist(productEntity);
 			productEntity = productDAO.findById(productEntity.getCodigo());
 			if (productEntity.getCodigo() != null) {
-				retorno = "Produto ".concat(productEntity.getNome().concat(" foi cadastrado com Sucesso!"));
+				retorno = "The Product ".concat(productEntity.getNome().concat(" was created with Success!"));
+				log.info(retorno);
 			}
 		} catch (EntityExistsException | TransactionRequiredException | IllegalStateException
 				| IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (Exception e) {
 			if (e.getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
-				retorno = "Favor cadastrar outro produto, pois já exite um produto com esse nome!";
+				retorno = "Please create other Product, this Product has been existes with name!";
+				log.info(retorno);
 			}
-		}
-		
+		}		
 		return retorno;
 	}
 
@@ -72,22 +76,20 @@ public class ProductBusiness implements IProductBusiness {
 		try {
 			productType = ParseUtil.parseProdutoEntityType(productEntity);
 			productEntity = productDAO.update(productEntity);
+			log.info("The product ".concat(productEntity.getNome()).concat(" was refresh with success!"));
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error(e1.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();	
+			log.error(e.getMessage());
 		
 		}
-		
-
-
 		return productType;
 	}
 
 	@Override
 	public List<ProductType> listProducts() {
 		List<ProductEntity> productEntities = productDAO.findAll();
+		log.info("Qtde of Products = " + String.valueOf(productEntities.size()));
 		List<ProductType> produtos = ParseUtil.parseListProductEntityToType(productEntities);
 		return produtos;
 	}
@@ -108,19 +110,22 @@ public class ProductBusiness implements IProductBusiness {
 				builder.append("\n").append(productEntity.getPedidoEntities().get(i).getNome().toString());
 			}
 			retorno = builder.toString();
+			log.info(retorno);
 			
 			return retorno;	
 		}
 		
 		try {
 			productDAO.delete(productEntity);
-			retorno = "{O produto ".concat(productEntity.getNome().concat(" foi excluído com Sucesso!}"));
+			retorno = "{The Product ".concat(productEntity.getNome().concat(" was deleted with Success!}"));
+			log.info(retorno);
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException
 				| PersistenceException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (Exception e) {
 			retorno = "Não foi possível exlcuir o registro ".concat(productEntity.getNome());
-			e.printStackTrace();
+			log.error(retorno);
+			log.error(e.getMessage());
 		}			
 
 		return retorno;

@@ -77,7 +77,7 @@ public class ClienteRestful {
 	@Path("/test")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response getTest(){
-		System.out.println("Entou no método getTest as ".concat(new Date().toString()));
+		//System.out.println("Entou no método getTest as ".concat(new Date().toString()));
 		return Response.status(200).entity("TesteOK").build();
 	}
 	
