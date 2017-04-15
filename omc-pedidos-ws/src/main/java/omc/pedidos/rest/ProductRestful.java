@@ -89,16 +89,12 @@ public class ProductRestful {
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response create(String produtosJson) throws JsonProcessingException{
 		
-		String product = this.productBusiness.createProduct(produtosJson);
+		String product = this.productBusiness.createProduct(produtosJson);		
 		
-		if(StringUtils.isEmpty(product)){
+		if(product.isEmpty()){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(product);
-		
-		return Response.status(200).entity(retorno).build();
+		}				
+		return Response.status(200).entity(product).build();
 	}
 	
 	@PUT
@@ -106,16 +102,13 @@ public class ProductRestful {
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public Response update(String productJson) throws JsonProcessingException{
 		
-		ProductType productType = this.productBusiness.updateProduct(productJson);
+		String productType = this.productBusiness.updateProduct(productJson);
 		
-		if(productType == null){
+		if(productType.isEmpty()){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(productType);
-		
-		return Response.status(200).entity(retorno).build();
+				
+		return Response.status(200).entity(productType).build();
 	}
 	
 	@DELETE
@@ -125,14 +118,11 @@ public class ProductRestful {
 		
 		String product = this.productBusiness.deleteProduct(productId);
 		
-		if(product == null){
+		if(product.isEmpty()){
 			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String retorno = mapper.writeValueAsString(product);
-		
-		return Response.status(200).entity(retorno).build();
+				
+		return Response.status(200).entity(product).build();
 	}
 
 }

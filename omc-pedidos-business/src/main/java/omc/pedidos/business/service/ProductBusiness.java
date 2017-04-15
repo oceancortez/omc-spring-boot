@@ -25,7 +25,7 @@ import omc.pedidos.persistence.IProductDAO;
  */
 @Component
 public class ProductBusiness implements IProductBusiness {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ProductBusiness.class);
 
 	@Autowired
@@ -44,8 +44,7 @@ public class ProductBusiness implements IProductBusiness {
 
 		productType = (ProductType) ParseUtil.parseJsonToType(cliente, new ProductType());
 		productEntity = ParseUtil.parseProdutoTypeToEntity(productType);
-		
-		
+
 		try {
 			productEntity = productDAO.persist(productEntity);
 			productEntity = productDAO.findById(productEntity.getCodigo());
@@ -61,12 +60,14 @@ public class ProductBusiness implements IProductBusiness {
 				retorno = "Please create other Product, this Product has been existes with name!";
 				log.info(retorno);
 			}
-		}		
-		return retorno;
+		}
+
+		return ParseUtil.parseStringToJson(retorno);
 	}
 
 	@Override
-	public ProductType updateProduct(final String cliente) {
+	public String updateProduct(final String cliente) {
+		String retorno = "";
 		ProductEntity productEntity = new ProductEntity();
 		ProductType productType = null;
 
@@ -74,16 +75,20 @@ public class ProductBusiness implements IProductBusiness {
 		productEntity = ParseUtil.parseProdutoTypeToEntity(productType);
 
 		try {
-			productType = ParseUtil.parseProdutoEntityType(productEntity);
 			productEntity = productDAO.update(productEntity);
-			log.info("The product ".concat(productEntity.getNome()).concat(" was refresh with success!"));
+			retorno = "The Product ".concat(productEntity.getNome().concat(" was refresh with Success!"));
+			log.info("The product ".concat(productEntity.getNome()).concat(" was refresh with Success!"));
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException e1) {
 			log.error(e1.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
-		
+			if (e.getCause().getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
+				retorno = "Please update with other name of Product, this Product has been existes!";
+				log.info(retorno);
+			}
 		}
-		return productType;
+
+		return ParseUtil.parseStringToJson(retorno);
 	}
 
 	@Override
@@ -97,24 +102,28 @@ public class ProductBusiness implements IProductBusiness {
 	@Override
 	public String deleteProduct(String produtosJson) {
 		String retorno = "";
-		//ProductType productType = (ProductType) ParseUtil.parseJsonToType(produtosJson, new ProductType());
-		ProductEntity productEntity; //= ParseUtil.parseProdutoTypeToEntity(productType);
+		// ProductType productType = (ProductType)
+		// ParseUtil.parseJsonToType(produtosJson, new ProductType());
+		ProductEntity productEntity; // =
+										// ParseUtil.parseProdutoTypeToEntity(productType);
 
 		productEntity = productDAO.findById(new Long(produtosJson));
 		if (CollectionUtils.isNotEmpty(productEntity.getPedidoEntities())) {
 			StringBuilder builder = new StringBuilder();
 			for (int i = 0; i < productEntity.getPedidoEntities().size(); i++) {
 				builder.append("\n REJECT \n");
-				builder.append("O produto não pode ser excluído, pois ainda está sendo utilizado pelos pedidos abaixo: ");
-				builder.append("\n").append(productEntity.getPedidoEntities().get(i).getId().getCodigoPedido().toString());
+				builder.append(
+						"O produto não pode ser excluído, pois ainda está sendo utilizado pelos pedidos abaixo: ");
+				builder.append("\n")
+						.append(productEntity.getPedidoEntities().get(i).getId().getCodigoPedido().toString());
 				builder.append("\n").append(productEntity.getPedidoEntities().get(i).getNome().toString());
 			}
 			retorno = builder.toString();
 			log.info(retorno);
-			
-			return retorno;	
+
+			return retorno;
 		}
-		
+
 		try {
 			productDAO.delete(productEntity);
 			retorno = "{The Product ".concat(productEntity.getNome().concat(" was deleted with Success!}"));
@@ -126,9 +135,9 @@ public class ProductBusiness implements IProductBusiness {
 			retorno = "Não foi possível exlcuir o registro ".concat(productEntity.getNome());
 			log.error(retorno);
 			log.error(e.getMessage());
-		}			
+		}
 
-		return retorno;
+		return ParseUtil.parseStringToJson(retorno);
 	}
 
 }

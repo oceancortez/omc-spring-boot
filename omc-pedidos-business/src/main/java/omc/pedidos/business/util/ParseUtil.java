@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.jdbc.log.Log;
 
+import net.minidev.json.JSONUtil;
 import omc.pedidos.business.type.ClienteType;
 import omc.pedidos.business.type.PedidoType;
 import omc.pedidos.business.type.ProductType;
@@ -21,6 +28,8 @@ import omc.pedidos.entity.ProductEntity;
  * The Class ParseUtil.
  */
 public class ParseUtil {
+	
+	final static Logger LOG = LoggerFactory.getLogger(ParseUtil.class);
 	
 	/**
 	 * Parses the pedido to type.
@@ -176,10 +185,38 @@ public class ParseUtil {
 				try {
 					parse = mapper.readValue(json, object.getClass());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOG.error(e.getStackTrace().toString());
 				}
 
+		return parse;
+	}
+
+
+	public static String parseTypeToJson(Object object) {
+		String parse = "";
+		
+		final ObjectMapper mapper = new ObjectMapper();
+		try {
+			parse = mapper.writeValueAsString(object);
+		} catch (JsonProcessingException e1) {
+
+			LOG.error(e1.getStackTrace().toString());
+		}
+		
+		return parse;
+	}
+
+
+	public static String parseStringToJson(String parse) {
+		
+		final ObjectMapper mapper = new ObjectMapper();
+		try {
+			parse = mapper.writeValueAsString(parse);
+		} catch (JsonProcessingException e1) {
+
+			LOG.error(e1.getStackTrace().toString());
+		}
+		
 		return parse;
 	}
 

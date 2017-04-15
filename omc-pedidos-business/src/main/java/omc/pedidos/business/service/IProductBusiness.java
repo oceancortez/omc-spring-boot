@@ -19,7 +19,7 @@ public interface IProductBusiness {
 
 	List<ProductType> listProducts();
 
-	ProductType updateProduct(String productJson);
+	String updateProduct(String productJson);
 
 	String deleteProduct(String productJson);
 
