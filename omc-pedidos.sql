@@ -67,6 +67,27 @@ ADD PRIMARY KEY (`CODPED`, `CODPRD`);
 ALTER TABLE `omc`.`produto` 
 ADD UNIQUE INDEX `NOMPRD_UNIQUE` (`NOMPRD` ASC);
 
+-- ----------------------------------------------------------------------------
+
+CREATE TABLE `category` (
+    `CODCAT` BIGINT NOT NULL AUTO_INCREMENT,
+    `NAMCAT` VARCHAR(15) NOT NULL UNIQUE,
+    `DESCAT` MEDIUMTEXT,
+    `PICCAT` LONGBLOB,
+    `DATCADCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`DATULTALTCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT `PK_Category` PRIMARY KEY (`CODCAT`))
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8; 
+    
+
+INSERT INTO category VALUES(null,'Produce','Dried fruit and bean curd', null, null, null);
+INSERT INTO category VALUES(null,'Condiments','Dried fruit and bean curd', null, null, null);
+INSERT INTO category VALUES(null,'Confections','Dried fruit and bean curd',null, null, null);
+INSERT INTO category VALUES(null,'Dairy ','Dried fruit and bean curd',null, null, null);
+
+select * from category;
+
 -- -----------------------------------------------------------------------------
 -- ALTER TABLE `omc`.`pedido` 
 -- DROP PRIMARY KEY,

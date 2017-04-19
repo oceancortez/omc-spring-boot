@@ -5,19 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.jdbc.log.Log;
 
-import net.minidev.json.JSONUtil;
+import omc.pedidos.business.type.CategoryType;
 import omc.pedidos.business.type.ClienteType;
 import omc.pedidos.business.type.PedidoType;
 import omc.pedidos.business.type.ProductType;
+import omc.pedidos.entity.CategoryEntity;
 import omc.pedidos.entity.ClienteEntity;
 import omc.pedidos.entity.PedidoEntity;
 import omc.pedidos.entity.ProductEntity;
@@ -218,6 +216,34 @@ public class ParseUtil {
 		}
 		
 		return parse;
+	}
+
+
+	public static CategoryEntity parseCategoryTypeToEntity(final CategoryType categoryType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public static List<CategoryType> parseListCategoryEntityToType(final List<CategoryEntity> categoryEntities) {
+			List<CategoryType> categoryTypes = null;
+			
+		if(CollectionUtils.isNotEmpty(categoryEntities)){
+			categoryTypes = new ArrayList<>();
+			for (int i = 0; i < categoryEntities.size(); i++) {
+				final CategoryType categoryType = new CategoryType();
+				
+				categoryType.setId(categoryEntities.get(i).getId());	
+				categoryType.setName(categoryEntities.get(i).getName());
+				categoryType.setDescription(categoryEntities.get(i).getDescription());
+				categoryType.setPicture(categoryEntities.get(i).getPicture());
+				categoryType.setDateCreate(categoryEntities.get(i).getDateCreate());
+				categoryType.setDateLastModification(categoryEntities.get(i).getDateLastModification());
+				
+				categoryTypes.add(categoryType);
+			}
+		}
+		return categoryTypes;
 	}
 
 }
