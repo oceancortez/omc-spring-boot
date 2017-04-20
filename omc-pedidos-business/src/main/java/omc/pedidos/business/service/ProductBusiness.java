@@ -139,5 +139,10 @@ public class ProductBusiness implements IProductBusiness {
 
 		return ParseUtil.parseStringToJson(retorno);
 	}
+	
+	@Override
+	public List<ProductType> listProductsByCategoryId(final Long categoryId) {
+		return ParseUtil.parseListProductEntityToType(productDAO.listProductsByCategoryId(categoryId));
+	}
 
 }

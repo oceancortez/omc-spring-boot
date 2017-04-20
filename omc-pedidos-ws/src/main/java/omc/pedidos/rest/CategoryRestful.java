@@ -55,6 +55,7 @@ public class CategoryRestful {
 		
 		return Response.status(200).entity(array).build();
 	}
+
 	
 	@GET
 	@Path("/list-categories")

@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,6 +23,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "produto", schema = "omc")
+@NamedQueries(value = {
+		@NamedQuery(name = "ProductEntity.listProductsByCategoryId",
+					query = "SELECT p FROM ProductEntity p "
+				 		+ "JOIN p.categoryEntity c "
+				 		+ "WHERE c.id= :categoryId")
+})
 public class ProductEntity implements Serializable{
 
 	private static final long serialVersionUID = 6718909524788940370L;
@@ -41,6 +52,10 @@ public class ProductEntity implements Serializable{
 	
 	@Column(name = "DATULTALTPRD")
 	private Date dataUltimaAlteracao;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CODCAT")
+	private CategoryEntity categoryEntity;
 	
 	/***
 	 * <b>Um Produto pode ter muitos Pedidos<b>
@@ -152,5 +167,20 @@ public class ProductEntity implements Serializable{
 	 */
 	public void setPedidoEntities(List<PedidoEntity> pedidoEntities) {
 		this.pedidoEntities = pedidoEntities;
-	}	
+	}
+
+	/**
+	 * @return the categoryEntity
+	 */
+	public CategoryEntity getCategoryEntity() {
+		return categoryEntity;
+	}
+
+	/**
+	 * @param categoryEntity the categoryEntity to set
+	 */
+	public void setCategoryEntity(CategoryEntity categoryEntity) {
+		this.categoryEntity = categoryEntity;
+	}
+
 }

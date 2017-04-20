@@ -23,4 +23,6 @@ public interface IProductBusiness {
 
 	String deleteProduct(String productJson);
 
+	List<ProductType> listProductsByCategoryId(final Long categoryId);
+
 }

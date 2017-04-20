@@ -2,13 +2,16 @@ package omc.pedidos.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.mysql.jdbc.Blob;
 
 /**
  * @author ocean
@@ -18,7 +21,7 @@ import com.mysql.jdbc.Blob;
 @Table(name = "category", schema = "omc")
 public class CategoryEntity implements Serializable{
 
-	private static final long serialVersionUID = 6718909524788940370L;
+	private static final long serialVersionUID = -8442870016171976392L;
 
 	@Id
 	@GeneratedValue
@@ -39,6 +42,9 @@ public class CategoryEntity implements Serializable{
 	
 	@Column(name = "DATULTALTCAT")
 	private Date dateLastModification;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categoryEntity")
+	private Set<ProductEntity> productEntities;
 
 	/**
 	 * @return the id
@@ -123,5 +129,20 @@ public class CategoryEntity implements Serializable{
 	public void setDateLastModification(Date dateLastModification) {
 		this.dateLastModification = dateLastModification;
 	}
+
+	/**
+	 * @return the productEntities
+	 */
+	public Set<ProductEntity> getProductEntities() {
+		return productEntities;
+	}
+
+	/**
+	 * @param productEntities the productEntities to set
+	 */
+	public void setProductEntities(Set<ProductEntity> productEntities) {
+		this.productEntities = productEntities;
+	}
+
 		
 }

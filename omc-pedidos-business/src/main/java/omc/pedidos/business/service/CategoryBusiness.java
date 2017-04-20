@@ -48,7 +48,7 @@ public class CategoryBusiness implements ICategoryBusiness {
 			categoryEntity = categoryDAO.persist(categoryEntity);
 			categoryEntity = categoryDAO.findById(categoryEntity.getId());
 			if (categoryEntity.getId() != null) {
-				retorno = "The Category ".concat(categoryEntity.getName().concat(" was created with Success!"));
+				retorno = "The Category '".concat(categoryEntity.getName().concat("' was created with Success!"));
 				log.info(retorno);
 			}
 		} catch (EntityExistsException | TransactionRequiredException | IllegalStateException

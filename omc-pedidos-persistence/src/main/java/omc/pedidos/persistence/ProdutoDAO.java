@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -34,6 +35,19 @@ public class ProdutoDAO extends GenericDAO<ProductEntity, Long> implements IProd
 		 createQuery.setParameter("nome", nome);
 		
 		List<ProductEntity> pedidoPorNome = createQuery.getResultList();
+		
+		return pedidoPorNome;
+	}
+
+	@Override
+	public List<ProductEntity> listProductsByCategoryId(Long categoryId) {
+		
+		final Query namedQuery = this.entityManager.createNamedQuery("ProductEntity.listProductsByCategoryId");
+
+		 namedQuery.setParameter("categoryId", categoryId);
+		
+		@SuppressWarnings("unchecked")
+		List<ProductEntity> pedidoPorNome = namedQuery.getResultList();
 		
 		return pedidoPorNome;
 	}

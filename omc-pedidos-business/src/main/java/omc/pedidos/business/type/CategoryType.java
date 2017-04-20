@@ -2,12 +2,15 @@ package omc.pedidos.business.type;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import omc.pedidos.entity.ProductEntity;
+
 public class CategoryType implements Serializable{
 
-	private static final long serialVersionUID = 4463400574145900359L;
+	private static final long serialVersionUID = -2097014875432029954L;
 
 	private Long id;
 
@@ -22,6 +25,8 @@ public class CategoryType implements Serializable{
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date dateLastModification;
+	
+	private Set<ProductType> productTypes;
 
 	/**
 	 * @return the id
@@ -105,6 +110,20 @@ public class CategoryType implements Serializable{
 	 */
 	public void setDateLastModification(Date dateLastModification) {
 		this.dateLastModification = dateLastModification;
+	}
+
+	/**
+	 * @return the productTypes
+	 */
+	public Set<ProductType> getProductTypes() {
+		return productTypes;
+	}
+
+	/**
+	 * @param productTypes the productTypes to set
+	 */
+	public void setProductTypes(Set<ProductType> productTypes) {
+		this.productTypes = productTypes;
 	}
 
 

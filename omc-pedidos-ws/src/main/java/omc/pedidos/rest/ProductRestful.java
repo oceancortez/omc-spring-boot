@@ -58,6 +58,24 @@ public class ProductRestful {
 	}
 	
 	@GET
+	@Path("/list-by-category")
+	@Produces(value = MediaType.APPLICATION_JSON)
+	@Transactional(readOnly = true)
+	public Response getProductsByCategoryId(@QueryParam("categoryId")Long categoryId) throws JsonProcessingException{
+		
+		final List<ProductType> productTypes = this.productBusiness.listProductsByCategoryId(categoryId);
+		
+		if(CollectionUtils.isEmpty(productTypes)){
+			return Response.status(200).entity("Não foram encotrados registros com o nome = ".concat(categoryId.toString())).build();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String array = mapper.writeValueAsString(productTypes);
+		
+		return Response.status(200).entity(array).build();
+	}
+	
+	@GET
 	@Path("/list-products")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)

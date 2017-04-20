@@ -2,7 +2,9 @@ package omc.pedidos.business.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -183,7 +185,7 @@ public class ParseUtil {
 				try {
 					parse = mapper.readValue(json, object.getClass());
 				} catch (IOException e) {
-					LOG.error(e.getStackTrace().toString());
+					LOG.error(e.toString());
 				}
 
 		return parse;
@@ -220,8 +222,19 @@ public class ParseUtil {
 
 
 	public static CategoryEntity parseCategoryTypeToEntity(final CategoryType categoryType) {
-		// TODO Auto-generated method stub
-		return null;
+			 CategoryEntity categoryEntity = null; 
+			if(categoryType != null){				
+				categoryEntity = new CategoryEntity();
+				if(categoryType.getId() != null){
+					categoryEntity.setId(categoryType.getId());
+				}
+				categoryEntity.setName(categoryType.getName());
+				categoryEntity.setDescription(categoryType.getDescription());
+				categoryEntity.setPicture(categoryType.getPicture());
+				categoryEntity.setDateCreate(categoryType.getDateCreate());
+				categoryEntity.setDateLastModification(categoryType.getDateLastModification());
+			}
+		return categoryEntity;
 	}
 
 
@@ -240,6 +253,21 @@ public class ParseUtil {
 				categoryType.setDateCreate(categoryEntities.get(i).getDateCreate());
 				categoryType.setDateLastModification(categoryEntities.get(i).getDateLastModification());
 				
+				if(CollectionUtils.isNotEmpty(categoryEntities.get(i).getProductEntities())){
+					Set<ProductType> productTypes = new HashSet<ProductType>();
+					for (int j = 0; j < categoryEntities.get(i).getProductEntities().size(); j++) {
+						ProductType productType = new ProductType();
+						productType.setCodigo(categoryEntities.get(i).getProductEntities().iterator().next().getCodigo());
+						productType.setNome(categoryEntities.get(i).getProductEntities().iterator().next().getNome());
+						productType.setValor(categoryEntities.get(i).getProductEntities().iterator().next().getValor());
+						productType.setQuantidade(categoryEntities.get(i).getProductEntities().iterator().next().getQuantidade());
+						productType.setDataCadastro(categoryEntities.get(i).getProductEntities().iterator().next().getDataCadastro());
+						productType.setDataUltimaAlteracao(categoryEntities.get(i).getProductEntities().iterator().next().getDataUltimaAlteracao());
+						
+						productTypes.add(productType);
+					}		
+					categoryType.setProductTypes(productTypes);
+				}
 				categoryTypes.add(categoryType);
 			}
 		}

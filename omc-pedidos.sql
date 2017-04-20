@@ -14,6 +14,28 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+CREATE TABLE `category` (
+    `CODCAT` BIGINT NOT NULL AUTO_INCREMENT,
+    `NAMCAT` VARCHAR(15) NOT NULL UNIQUE,
+    `DESCAT` MEDIUMTEXT,
+    `PICCAT` LONGBLOB,
+    `DATCADCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`DATULTALTCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT `PK_Category` PRIMARY KEY (`CODCAT`))
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8; 
+    
+
+INSERT INTO category VALUES(null,'Produce','Dried fruit and bean curd', null, null, null);
+INSERT INTO category VALUES(null,'Condiments','Dried fruit and bean curd', null, null, null);
+INSERT INTO category VALUES(null,'Confections','Dried fruit and bean curd',null, null, null);
+INSERT INTO category VALUES(null,'Dairy ','Dried fruit and bean curd',null, null, null);
+
+select * from category;
+
+-- -----------------------------------------------------------------------------
+
+
 CREATE TABLE `omc`.`produto` (
   `CODPRD` BIGINT NOT NULL AUTO_INCREMENT,
   `NOMPRD` VARCHAR(100) NOT NULL,
@@ -30,7 +52,25 @@ ADD COLUMN `QTDPRD` INT NOT NULL AFTER `VLRPRD`;
 ALTER TABLE `omc`.`produto` 
 ADD UNIQUE INDEX `NOMPRD_UNIQUE` (`NOMPRD` ASC);
 
+ALTER TABLE `omc`.`produto` 
+ADD COLUMN `CODCAT` BIGINT(20) NOT NULL AFTER `DATULTALTPRD`;
 
+ALTER TABLE `omc`.`produto` 
+ADD INDEX `FK_CODCAT_idx` (`CODCAT` ASC);
+
+UPDATE `omc`.`produto` SET `CODCAT`='1' WHERE `CODPRD`> 0;
+
+ALTER TABLE `omc`.`produto` 
+ADD CONSTRAINT `FK_CODCAT`
+  FOREIGN KEY (`CODCAT`)
+  REFERENCES `omc`.`category` (`CODCAT`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+select * from `omc`.`produto` ;
+
+
+-- --------------------------------------------------------------------------------------------------------
 
 CREATE TABLE `omc`.`pedido` (
   `CODPED` BIGINT NOT NULL,
@@ -69,26 +109,7 @@ ADD UNIQUE INDEX `NOMPRD_UNIQUE` (`NOMPRD` ASC);
 
 -- ----------------------------------------------------------------------------
 
-CREATE TABLE `category` (
-    `CODCAT` BIGINT NOT NULL AUTO_INCREMENT,
-    `NAMCAT` VARCHAR(15) NOT NULL UNIQUE,
-    `DESCAT` MEDIUMTEXT,
-    `PICCAT` LONGBLOB,
-    `DATCADCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`DATULTALTCAT` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT `PK_Category` PRIMARY KEY (`CODCAT`))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8; 
-    
 
-INSERT INTO category VALUES(null,'Produce','Dried fruit and bean curd', null, null, null);
-INSERT INTO category VALUES(null,'Condiments','Dried fruit and bean curd', null, null, null);
-INSERT INTO category VALUES(null,'Confections','Dried fruit and bean curd',null, null, null);
-INSERT INTO category VALUES(null,'Dairy ','Dried fruit and bean curd',null, null, null);
-
-select * from category;
-
--- -----------------------------------------------------------------------------
 -- ALTER TABLE `omc`.`pedido` 
 -- DROP PRIMARY KEY,
 -- ADD PRIMARY KEY (`CODPED`);
@@ -119,6 +140,9 @@ select * from omc.cliente c;
 select * from omc.cliente c
 left join omc.pedido ped  on ped.codcli = c.codcli
 where c.codcli = 3;
+
+
+select * from omc.category;
 
 -- change de password
 -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '' WITH GRANT OPTION;

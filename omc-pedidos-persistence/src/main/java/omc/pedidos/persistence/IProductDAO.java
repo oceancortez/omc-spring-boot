@@ -15,4 +15,6 @@ public interface IProductDAO extends IGenericDAO<ProductEntity, Long>  {
 	
 	List<ProductEntity> listByName(String nome);
 
+	List<ProductEntity> listProductsByCategoryId(Long categoryId);
+
 }
