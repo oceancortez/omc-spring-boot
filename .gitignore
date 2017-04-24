@@ -1,34 +1,44 @@
+# Java
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/target/
 
-.settings
+# Maven
+target/
+bin/
+*.tag
+*.releaseBackup
+*.versionsBackup
+*.next
+maven-eclipse.xml
+release.properties
+ 
+ 
+# Eclipse
 .classpath
 .project
-
-rebel.xml
-
-.DS_Store
-
-npm-debug.log
-
-node_modules
-
-.tern-project
-
-*.bak
-*.mwb.bak
-
-# Idea project files
+.settings/
+.externalToolBuilders
+ 
+ 
+# Intellij
 .idea/
 *.iml
+*.iws
+ 
+ 
+# SublimeText
+*.sublime-workspace
+ 
+ 
+# Others
+*.log
+
+# vscode
+/.vscode
+
+# bower libs
+bower_components/
+ 
+
