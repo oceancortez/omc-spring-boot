@@ -1,5 +1,6 @@
 package omc.pedidos.business.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -12,11 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-
+import omc.pedidos.business.type.ProductResponse;
 import omc.pedidos.business.type.ProductType;
 import omc.pedidos.business.util.ParseUtil;
 import omc.pedidos.entity.ProductEntity;
+import omc.pedidos.persistence.ICategoryDAO;
 import omc.pedidos.persistence.IProductDAO;
 
 /**
@@ -30,6 +31,9 @@ public class ProductBusiness implements IProductBusiness {
 
 	@Autowired
 	private IProductDAO productDAO;
+	
+	@Autowired
+	private ICategoryDAO categoryDAO;
 
 	@Override
 	public List<ProductType> listByName(final String name) {
@@ -37,66 +41,103 @@ public class ProductBusiness implements IProductBusiness {
 	}
 
 	@Override
-	public String createProduct(final String cliente) {
-		String retorno = "";
+	public ProductResponse createProduct(final String cliente) {
+		ProductResponse productResponse = new ProductResponse();
 		ProductEntity productEntity = new ProductEntity();
-		ProductType productType = null;
-
-		productType = (ProductType) ParseUtil.parseJsonToType(cliente, new ProductType());
+		ProductType productType = null;		
+	
+		try {
+			productType = (ProductType) ParseUtil.parseJsonToType(cliente, new ProductType());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return new ProductResponse("Erro de dado Inválido, favor analisar os dados digitados!");
+		}
+		
 		productEntity = ParseUtil.parseProdutoTypeToEntity(productType);
 
 		try {
+			productEntity.setCategoryEntity(categoryDAO.findById(productType.getCategoryId()));
 			productEntity = productDAO.persist(productEntity);
 			productEntity = productDAO.findById(productEntity.getCodigo());
+			
 			if (productEntity.getCodigo() != null) {
-				retorno = "The Product ".concat(productEntity.getNome().concat(" was created with Success!"));
-				log.info(retorno);
+				productResponse.setProductType(productType);
+				productResponse.setMessage("The Product ".concat(productEntity.getNome().concat(" was created with Success!")));
+				log.info(productResponse.getMessage());
+			}else{
+				productResponse.setMessage("Error! The Product ".concat(productEntity.getNome().concat(" note was created!")));
 			}
+			
 		} catch (EntityExistsException | TransactionRequiredException | IllegalStateException
 				| IllegalArgumentException e) {
 			log.error(e.getMessage());
+				productResponse.setMessage("Error! The Product ".concat(e.getMessage()));
 		} catch (Exception e) {
-			if (e.getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
-				retorno = "Please create other Product, this Product has been existes with name!";
-				log.info(retorno);
+			if (e.getCause().getCause().getMessage().contains("NOMPRD_UNIQUE")) {
+				String retorno = "Please create other Product, this Product has been existes with name!";
+				productResponse.setMessage("Error! The Product ".concat(retorno));
+				log.info(productResponse.getMessage());
+			}else{
+				productResponse.setMessage("Error! The Product ".concat(e.getMessage()));
 			}
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return productResponse;
 	}
 
 	@Override
-	public String updateProduct(final String cliente) {
-		String retorno = "";
+	public ProductResponse updateProduct(final String cliente) {
+		ProductResponse response = new ProductResponse();
 		ProductEntity productEntity = new ProductEntity();
 		ProductType productType = null;
-
-		productType = (ProductType) ParseUtil.parseJsonToType(cliente, new ProductType());
+		
+		try {
+			productType = (ProductType) ParseUtil.parseJsonToType(cliente, new ProductType());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return new ProductResponse("Erro de dado Inválido, favor analisar os dados digitados!");
+		}
 		productEntity = ParseUtil.parseProdutoTypeToEntity(productType);
 
 		try {
+			productEntity.setCategoryEntity(categoryDAO.getCategoryByProductId(productEntity.getCodigo()));
 			productEntity = productDAO.update(productEntity);
-			retorno = "The Product ".concat(productEntity.getNome().concat(" was refresh with Success!"));
-			log.info("The product ".concat(productEntity.getNome()).concat(" was refresh with Success!"));
+			response.setProductType(productType);
+			response.setMessage("The Product ".concat(productEntity.getNome().concat(" was refresh with Success!")));			
+			log.info(response.getMessage());
+			
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException e1) {
 			log.error(e1.getMessage());
 		} catch (Exception e) {
-			log.error(e.getMessage());
-			if (e.getCause().getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
-				retorno = "Please update with other name of Product, this Product has been existes!";
-				log.info(retorno);
+			if (e.getCause().getCause().getMessage().contains("NOMPRD_UNIQUE")) {
+				String retorno = "Please create other Product, this Product has been existes with name!";
+				response.setMessage("Error! The Product ".concat(retorno));
+				log.info(response.getMessage());
+			}else{
+				response.setMessage("Error! The Product ".concat(e.getMessage()));
 			}
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return response;
 	}
 
 	@Override
-	public List<ProductType> listProducts() {
-		List<ProductEntity> productEntities = productDAO.findAll();
-		log.info("Qtde of Products = " + String.valueOf(productEntities.size()));
-		List<ProductType> produtos = ParseUtil.parseListProductEntityToType(productEntities);
-		return produtos;
+	public ProductResponse listProducts() {
+		ProductResponse productResponse = new ProductResponse();
+		
+		try {
+			List<ProductEntity> productEntities = productDAO.findAll();
+			if(CollectionUtils.isNotEmpty(productEntities)){
+				List<ProductType> parseTypes = ParseUtil.parseListProductEntityToType(productEntities);
+				productResponse.setProductTypes(parseTypes);
+			}else{
+				productResponse.setMessage("Não foram encotrados registros");
+			}			
+			
+		} catch (Exception e) {
+			productResponse.setMessage(e.getMessage());			
+		}				
+		return productResponse;
 	}
 
 	@Override
@@ -141,8 +182,23 @@ public class ProductBusiness implements IProductBusiness {
 	}
 	
 	@Override
-	public List<ProductType> listProductsByCategoryId(final Long categoryId) {
-		return ParseUtil.parseListProductEntityToType(productDAO.listProductsByCategoryId(categoryId));
+	public ProductResponse listProductsByCategoryId(final Long categoryId) {
+		ProductResponse productResponse = new ProductResponse();
+		
+		try {
+			List<ProductEntity> productEntities = productDAO.listProductsByCategoryId(categoryId);
+			if(CollectionUtils.isNotEmpty(productEntities)){
+				List<ProductType> parseTypes = ParseUtil.parseListProductEntityToType(productEntities);
+				productResponse.setProductTypes(parseTypes);
+			}else{
+				productResponse.setMessage("Não foram encotrados produtos para esta Categoria!");
+			}			
+			
+		} catch (Exception e) {
+			productResponse.setMessage(e.getMessage());			
+		}		
+		
+		return productResponse;
 	}
 
 }

@@ -1,5 +1,6 @@
 package omc.pedidos.business.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityExistsException;
@@ -41,7 +42,12 @@ public class CategoryBusiness implements ICategoryBusiness {
 		CategoryEntity categoryEntity = new CategoryEntity();
 		CategoryType categoryType = null;
 
-		categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
+		try {
+			categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		categoryEntity = ParseUtil.parseCategoryTypeToEntity(categoryType);
 
 		try {
@@ -70,7 +76,12 @@ public class CategoryBusiness implements ICategoryBusiness {
 		CategoryEntity categoryEntity = new CategoryEntity();
 		CategoryType categoryType = null;
 
-		categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
+		try {
+			categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		categoryEntity = ParseUtil.parseCategoryTypeToEntity(categoryType);
 
 		try {

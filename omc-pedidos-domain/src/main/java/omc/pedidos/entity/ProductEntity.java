@@ -53,7 +53,7 @@ public class ProductEntity implements Serializable{
 	@Column(name = "DATULTALTPRD")
 	private Date dataUltimaAlteracao;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "CODCAT")
 	private CategoryEntity categoryEntity;
 	

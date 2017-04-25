@@ -5,6 +5,7 @@ package omc.pedidos.business.service;
 
 import java.util.List;
 
+import omc.pedidos.business.type.ProductResponse;
 import omc.pedidos.business.type.ProductType;
 
 /**
@@ -15,14 +16,14 @@ public interface IProductBusiness {
 
 	List<ProductType> listByName(String name);
 
-	String createProduct(String product);
+	ProductResponse createProduct(String product);
 
-	List<ProductType> listProducts();
+	ProductResponse listProducts();
 
-	String updateProduct(String productJson);
+	ProductResponse updateProduct(String productJson);
 
 	String deleteProduct(String productJson);
 
-	List<ProductType> listProductsByCategoryId(final Long categoryId);
+	ProductResponse listProductsByCategoryId(final Long categoryId);
 
 }

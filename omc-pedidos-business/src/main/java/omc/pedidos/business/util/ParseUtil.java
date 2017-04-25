@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import omc.pedidos.business.type.CategoryType;
 import omc.pedidos.business.type.ClienteType;
 import omc.pedidos.business.type.PedidoType;
+import omc.pedidos.business.type.ProductResponse;
 import omc.pedidos.business.type.ProductType;
 import omc.pedidos.entity.CategoryEntity;
 import omc.pedidos.entity.ClienteEntity;
@@ -178,15 +179,11 @@ public class ParseUtil {
 	 * @param json the json
 	 * @return the object
 	 */
-	public static Object parseJsonToType(final String json, final Object object){
+	public static Object parseJsonToType(final String json, final Object object) throws IOException{
 		final ObjectMapper mapper  = new ObjectMapper();		
-		Object parse = null;
-
-				try {
-					parse = mapper.readValue(json, object.getClass());
-				} catch (IOException e) {
-					LOG.error(e.toString());
-				}
+		Object parse = null;	
+		
+		parse = mapper.readValue(json, object.getClass());	
 
 		return parse;
 	}
@@ -199,8 +196,8 @@ public class ParseUtil {
 		try {
 			parse = mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e1) {
-
-			LOG.error(e1.getStackTrace().toString());
+			LOG.error(e1.getMessage());
+			return e1.getMessage();
 		}
 		
 		return parse;

@@ -22,6 +22,8 @@ public class ProductType implements Serializable{
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date dataUltimaAlteracao;
+	
+	private Long categoryId;
 
 	/**
 	 * @return the codigo
@@ -105,6 +107,20 @@ public class ProductType implements Serializable{
 	 */
 	public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
 		this.dataUltimaAlteracao = dataUltimaAlteracao;
+	}
+
+	/**
+	 * @return the categoryId
+	 */
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	/**
+	 * @param categoryId the categoryId to set
+	 */
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +21,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "category", schema = "omc")
+@NamedQueries(value = {
+		@NamedQuery(name = "CategoryEntity.getCategoryByProductId",
+					query = "SELECT c FROM CategoryEntity c "
+				 		+ "JOIN c.productEntities p "
+				 		+ "WHERE p.codigo= :categoryId")
+})
 public class CategoryEntity implements Serializable{
 
 	private static final long serialVersionUID = -8442870016171976392L;

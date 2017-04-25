@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -37,6 +38,17 @@ public class CategoryDAO extends GenericDAO<CategoryEntity, Long> implements ICa
 		List<CategoryEntity> categoryPorNome = createQuery.getResultList();
 		
 		return categoryPorNome;
+	}
+
+	@Override
+	public CategoryEntity getCategoryByProductId(Long categoryId) {
+		final Query namedQuery = this.entityManager.createNamedQuery("CategoryEntity.getCategoryByProductId");
+
+		 namedQuery.setParameter("categoryId", categoryId);
+
+		 CategoryEntity categoryEntity = (CategoryEntity) namedQuery.getSingleResult();
+		
+		return categoryEntity;
 	}
 
 }
