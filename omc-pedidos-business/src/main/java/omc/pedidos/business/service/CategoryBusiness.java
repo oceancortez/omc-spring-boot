@@ -7,6 +7,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import javax.transaction.TransactionRequiredException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import omc.pedidos.business.type.CategoryResponse;
 import omc.pedidos.business.type.CategoryType;
 import omc.pedidos.business.util.ParseUtil;
 import omc.pedidos.entity.CategoryEntity;
@@ -37,16 +39,16 @@ public class CategoryBusiness implements ICategoryBusiness {
 	}
 
 	@Override
-	public String create(final String cliente) {
-		String retorno = "";
+	public CategoryResponse create(final String cliente) {
+		CategoryResponse response = new CategoryResponse();		
 		CategoryEntity categoryEntity = new CategoryEntity();
 		CategoryType categoryType = null;
 
 		try {
 			categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			response.setMessage(e1.getMessage());
+			return response;
 		}
 		categoryEntity = ParseUtil.parseCategoryTypeToEntity(categoryType);
 
@@ -54,100 +56,119 @@ public class CategoryBusiness implements ICategoryBusiness {
 			categoryEntity = categoryDAO.persist(categoryEntity);
 			categoryEntity = categoryDAO.findById(categoryEntity.getId());
 			if (categoryEntity.getId() != null) {
-				retorno = "The Category '".concat(categoryEntity.getName().concat("' was created with Success!"));
-				log.info(retorno);
+				response.setMessage("The Category '".concat(categoryEntity.getName().concat("' was created with Success!")));
+				response.setCategoryType(categoryType);
+				log.info(response.getMessage());
+			}else{
+				response.setMessage("The Category '".concat(categoryType.getName().concat("' Don't Possible was created!")));
 			}
+			
 		} catch (EntityExistsException | TransactionRequiredException | IllegalStateException
 				| IllegalArgumentException e) {
-			log.error(e.getMessage());
+			response.setMessage(e.getMessage());
+
 		} catch (Exception e) {
-			if (e.getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
-				retorno = "Please create other Category, this Category has been existes with name!";
-				log.info(retorno);
+			if (e.getCause().getCause().getMessage().contains("NAMCAT")) {
+				String message = "Please create other Category, this Category has been existes with name!";
+				response.setMessage("Error! The Category ".concat(message));
+				log.info(response.getMessage());
+			}else{
+				response.setMessage("Error! The Category ".concat(e.getMessage()));
 			}
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return response;
 	}
 
 	@Override
-	public String update(final String cliente) {
+	public CategoryResponse update(final String cliente) {
+		CategoryResponse response = new CategoryResponse();
 		String retorno = "";
 		CategoryEntity categoryEntity = new CategoryEntity();
 		CategoryType categoryType = null;
 
 		try {
 			categoryType = (CategoryType) ParseUtil.parseJsonToType(cliente, new CategoryType());
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+		} catch (IOException e1) {
+			response.setMessage(e1.getMessage());
+			return response;
 		}
 		categoryEntity = ParseUtil.parseCategoryTypeToEntity(categoryType);
 
 		try {
-			categoryEntity = categoryDAO.update(categoryEntity);
-			retorno = "The Category ".concat(categoryEntity.getName().concat(" was refresh with Success!"));
-			log.info("The Category ".concat(categoryEntity.getName()).concat(" was refresh with Success!"));
+			categoryEntity = categoryDAO.update(categoryEntity);			
+			response.setMessage("The Category '".concat(categoryEntity.getName().concat("' was refresh with Success!")));
+			response.setCategoryType(categoryType);
+			log.info(response.getMessage());
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException e1) {
+			response.setMessage(e1.getMessage());
 			log.error(e1.getMessage());
 		} catch (Exception e) {
 			log.error(e.getMessage());
-			if (e.getCause().getCause().getCause() instanceof MySQLIntegrityConstraintViolationException) {
-				retorno = "Please update with other name of Category, this Category has been existes!";
-				log.info(retorno);
+			if (e.getCause().getCause().getMessage().contains("NOMPRD_UNIQUE")) {
+				String message = "Please create other Category, this Category has been existes with name!";
+				response.setMessage("Error! The Category ".concat(message));
+				log.info(response.getMessage());
+			}else{
+				response.setMessage("Error! The Category ".concat(e.getMessage()));
 			}
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return response;
 	}
 
 	@Override
-	public List<CategoryType> listCategories() {
+	public CategoryResponse listCategories() {
+		CategoryResponse response = new CategoryResponse();		
 		List<CategoryEntity> categoryEntities = categoryDAO.findAll();
 		log.info("Qtde of categoryEntities = " + String.valueOf(categoryEntities.size()));
-		List<CategoryType> categories = ParseUtil.parseListCategoryEntityToType(categoryEntities);
-		return categories;
+		if(CollectionUtils.isEmpty(categoryEntities)){
+			response.setMessage("Não exitem registros na base!");
+			return response;
+		}
+		response.setCategoryTypes(ParseUtil.parseListCategoryEntityToType(categoryEntities));
+		return response;
 	}
 
 	@Override
-	public String delete(String produtosJson) {
-		String retorno = "";
-		// ProductType productType = (ProductType)
-		// ParseUtil.parseJsonToType(produtosJson, new ProductType());
-		CategoryEntity categoryEntity; // =
-										// ParseUtil.parseProdutoTypeToEntity(productType);
+	public CategoryResponse delete(String produtosJson) {
+		CategoryResponse response = new CategoryResponse();
+		CategoryEntity categoryEntity; 										
 
 		categoryEntity = categoryDAO.findById(new Long(produtosJson));
-//		if (CollectionUtils.isNotEmpty(categoryEntity.getPedidoEntities())) {
-//			StringBuilder builder = new StringBuilder();
-//			for (int i = 0; i < categoryEntity.getPedidoEntities().size(); i++) {
-//				builder.append("\n REJECT \n");
-//				builder.append(
-//						"O produto não pode ser excluído, pois ainda está sendo utilizado pelos pedidos abaixo: ");
-//				builder.append("\n")
-//						.append(categoryEntity.getPedidoEntities().get(i).getId().getCodigoPedido().toString());
-//				builder.append("\n").append(categoryEntity.getPedidoEntities().get(i).getNome().toString());
-//			}
-//			retorno = builder.toString();
-//			log.info(retorno);
-//
-//			return retorno;
-//		}
+		
+		if (CollectionUtils.isNotEmpty(categoryEntity.getProductEntities())) {
+			StringBuilder builder = new StringBuilder();
+			for (int i = 0; i < categoryEntity.getProductEntities().size();) {
+				builder.append("\n REJECT \n");
+				builder.append(
+						"O Category não pode ser excluído, pois ainda está sendo utilizado pelos pedidos abaixo: ");
+				builder.append("\n")
+						.append(categoryEntity.getProductEntities().iterator().next().getCodigo().toString());
+				builder.append("\n").append(categoryEntity.getProductEntities().iterator().next().getNome().toString());
+				break;	
+		
+			}
+			response.setCategoryType(ParseUtil.parseCategoryEntityToType(categoryEntity));
+			response.setMessage(builder.toString());
+			log.info(response.getMessage());
+			return response;
+		}
 
 		try {
 			categoryDAO.delete(categoryEntity);
-			retorno = "{The Category ".concat(categoryEntity.getName().concat(" was deleted with Success!}"));
-			log.info(retorno);
+			response.setMessage("{The Category ".concat(categoryEntity.getName().concat(" was deleted with Success!}")));
+			log.info(response.getMessage());
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException
 				| PersistenceException e) {
+			response.setMessage(e.getMessage());
 			log.error(e.getMessage());
 		} catch (Exception e) {
-			retorno = "Não foi possível exlcuir o registro ".concat(categoryEntity.getName());
-			log.error(retorno);
+			response.setMessage("Não foi possível exlcuir o registro ".concat(categoryEntity.getName()));
 			log.error(e.getMessage());
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return response;
 	}
 
 }

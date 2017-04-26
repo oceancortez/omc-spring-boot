@@ -22,7 +22,7 @@ public interface IProductBusiness {
 
 	ProductResponse updateProduct(String productJson);
 
-	String deleteProduct(String productJson);
+	ProductResponse deleteProduct(String productJson);
 
 	ProductResponse listProductsByCategoryId(final Long categoryId);
 

@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import omc.pedidos.business.service.ICategoryBusiness;
+import omc.pedidos.business.type.CategoryResponse;
 import omc.pedidos.business.type.CategoryType;
 
 /**
@@ -61,18 +63,9 @@ public class CategoryRestful {
 	@Path("/list-categories")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
-	public Response getCategories() throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> getCategories() throws JsonProcessingException{
 		
-		final List<CategoryType> categoryTypes = this.categoryBusiness.listCategories();
-		
-		if(CollectionUtils.isEmpty(categoryTypes)){
-			return Response.status(200).entity("Não foram encotrados registros").build();
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String array = mapper.writeValueAsString(categoryTypes);
-		
-		return Response.status(200).entity(array).build();
+		return ResponseEntity.status(200).body(this.categoryBusiness.listCategories());
 	}
 	
 	
@@ -87,42 +80,25 @@ public class CategoryRestful {
 	@POST
 	@Path("/create")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response create(String produtosJson) throws JsonProcessingException{
-		
-		String category = this.categoryBusiness.create(produtosJson);		
-		
-		if(category.isEmpty()){
-			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
-		}				
-		return Response.status(200).entity(category).build();
+	public ResponseEntity<CategoryResponse> create(String productJson) throws JsonProcessingException{
+					
+		return ResponseEntity.status(200).body(categoryBusiness.create(productJson));
 	}
 	
 	@PUT
 	@Path("/update")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response update(String productJson) throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> update(String productJson) throws JsonProcessingException{
 		
-		String category = this.categoryBusiness.update(productJson);
-		
-		if(category.isEmpty()){
-			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
-		}
-				
-		return Response.status(200).entity(category).build();
+		return ResponseEntity.status(200).body(categoryBusiness.update(productJson));
 	}
 	
 	@DELETE
 	@Path("/delete")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response delete(@QueryParam("productId") String productId) throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> delete(@QueryParam("productId") String productId) throws JsonProcessingException{
 		
-		String category = this.categoryBusiness.delete(productId);
-		
-		if(category.isEmpty()){
-			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
-		}
-				
-		return Response.status(200).entity(category).build();
+		return ResponseEntity.status(200).body(categoryBusiness.delete(productId));
 	}
 
 }

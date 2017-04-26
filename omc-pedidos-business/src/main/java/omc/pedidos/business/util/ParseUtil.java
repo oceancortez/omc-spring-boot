@@ -24,12 +24,16 @@ import omc.pedidos.entity.PedidoEntity;
 import omc.pedidos.entity.ProductEntity;
 
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ParseUtil.
+ *
  * @author ocean
  * The Class ParseUtil.
  */
 public class ParseUtil {
 	
+	/** The Constant LOG. */
 	final static Logger LOG = LoggerFactory.getLogger(ParseUtil.class);
 	
 	/**
@@ -175,9 +179,10 @@ public class ParseUtil {
 	/**
 	 * Parses the json to type.
 	 *
-	 * @param object the object
 	 * @param json the json
+	 * @param object the object
 	 * @return the object
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static Object parseJsonToType(final String json, final Object object) throws IOException{
 		final ObjectMapper mapper  = new ObjectMapper();		
@@ -189,6 +194,12 @@ public class ParseUtil {
 	}
 
 
+	/**
+	 * Parses the type to json.
+	 *
+	 * @param object the object
+	 * @return the string
+	 */
 	public static String parseTypeToJson(Object object) {
 		String parse = "";
 		
@@ -204,6 +215,12 @@ public class ParseUtil {
 	}
 
 
+	/**
+	 * Parses the string to json.
+	 *
+	 * @param parse the parse
+	 * @return the string
+	 */
 	public static String parseStringToJson(String parse) {
 		
 		final ObjectMapper mapper = new ObjectMapper();
@@ -218,6 +235,12 @@ public class ParseUtil {
 	}
 
 
+	/**
+	 * Parses the category type to entity.
+	 *
+	 * @param categoryType the category type
+	 * @return the category entity
+	 */
 	public static CategoryEntity parseCategoryTypeToEntity(final CategoryType categoryType) {
 			 CategoryEntity categoryEntity = null; 
 			if(categoryType != null){				
@@ -235,6 +258,12 @@ public class ParseUtil {
 	}
 
 
+	/**
+	 * Parses the list category entity to type.
+	 *
+	 * @param categoryEntities the category entities
+	 * @return the list
+	 */
 	public static List<CategoryType> parseListCategoryEntityToType(final List<CategoryEntity> categoryEntities) {
 			List<CategoryType> categoryTypes = null;
 			
@@ -269,6 +298,30 @@ public class ParseUtil {
 			}
 		}
 		return categoryTypes;
+	}
+
+
+	/**
+	 * Parses the category entity to type.
+	 *
+	 * @param categoryEntity the category entity
+	 * @return the category type
+	 */
+	public static CategoryType parseCategoryEntityToType(CategoryEntity categoryEntity) {
+		 CategoryType categoryType = null; 
+			if(categoryEntity != null){				
+				categoryType = new CategoryType();
+				if(categoryType.getId() != null){
+					categoryType.setId(categoryEntity.getId());
+				}
+				categoryType.setName(categoryEntity.getName());
+				categoryType.setDescription(categoryEntity.getDescription());
+				categoryType.setPicture(categoryEntity.getPicture());
+				categoryType.setDateCreate(categoryEntity.getDateCreate());
+				categoryType.setDateLastModification(categoryEntity.getDateLastModification());
+			}
+		
+		return categoryType;
 	}
 
 }

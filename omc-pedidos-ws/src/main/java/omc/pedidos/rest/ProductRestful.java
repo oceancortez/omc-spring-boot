@@ -11,7 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -22,10 +21,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import omc.pedidos.business.service.IProductBusiness;
 import omc.pedidos.business.type.ProductResponse;
 import omc.pedidos.business.type.ProductType;
@@ -105,15 +104,9 @@ public class ProductRestful {
 	@DELETE
 	@Path("/delete")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public Response delete(@QueryParam("productId") String productId) throws JsonProcessingException{
+	public ResponseEntity<ProductResponse> delete(@QueryParam("productId") String productId) throws JsonProcessingException{
 		
-		String product = this.productBusiness.deleteProduct(productId);
-		
-		if(product.isEmpty()){
-			return Response.status(200).entity("Não foi possível fazer o  cadastro = ").build();
-		}
-				
-		return Response.status(200).entity(product).build();
+		return  ResponseEntity.status(200).body(this.productBusiness.deleteProduct(productId));
 	}
 
 }

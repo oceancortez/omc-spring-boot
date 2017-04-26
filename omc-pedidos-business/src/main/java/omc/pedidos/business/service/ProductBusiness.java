@@ -141,44 +141,44 @@ public class ProductBusiness implements IProductBusiness {
 	}
 
 	@Override
-	public String deleteProduct(String produtosJson) {
-		String retorno = "";
-		// ProductType productType = (ProductType)
-		// ParseUtil.parseJsonToType(produtosJson, new ProductType());
-		ProductEntity productEntity; // =
-										// ParseUtil.parseProdutoTypeToEntity(productType);
+	public ProductResponse deleteProduct(String produtosJson) {
+		ProductResponse response = new ProductResponse();		
+		ProductEntity productEntity; 								
 
 		productEntity = productDAO.findById(new Long(produtosJson));
 		if (CollectionUtils.isNotEmpty(productEntity.getPedidoEntities())) {
 			StringBuilder builder = new StringBuilder();
-			for (int i = 0; i < productEntity.getPedidoEntities().size(); i++) {
+			for (int i = 0; i < productEntity.getPedidoEntities().size(); i++) {				
 				builder.append("\n REJECT \n");
 				builder.append(
 						"O produto não pode ser excluído, pois ainda está sendo utilizado pelos pedidos abaixo: ");
 				builder.append("\n")
 						.append(productEntity.getPedidoEntities().get(i).getId().getCodigoPedido().toString());
 				builder.append("\n").append(productEntity.getPedidoEntities().get(i).getNome().toString());
+				break;	
+		
 			}
-			retorno = builder.toString();
-			log.info(retorno);
-
-			return retorno;
-		}
+			response.setProductType(ParseUtil.parseProdutoEntityType(productEntity));
+			response.setMessage(builder.toString());
+			log.info(response.getMessage());
+			return response;		
+		}	
 
 		try {
 			productDAO.delete(productEntity);
-			retorno = "{The Product ".concat(productEntity.getNome().concat(" was deleted with Success!}"));
-			log.info(retorno);
+			response.setMessage("{The Product ".concat(productEntity.getNome().concat(" was deleted with Success!}")));
+			log.info(response.getMessage());
+			
 		} catch (TransactionRequiredException | IllegalStateException | IllegalArgumentException
-				| PersistenceException e) {
+				| PersistenceException e) {			
+			response.setMessage(e.getMessage());
 			log.error(e.getMessage());
-		} catch (Exception e) {
-			retorno = "Não foi possível exlcuir o registro ".concat(productEntity.getNome());
-			log.error(retorno);
+		} catch (Exception e) {			
+			response.setMessage("Não foi possível exlcuir o registro ".concat(productEntity.getNome()));
 			log.error(e.getMessage());
 		}
 
-		return ParseUtil.parseStringToJson(retorno);
+		return response;
 	}
 	
 	@Override
