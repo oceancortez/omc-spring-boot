@@ -80,25 +80,25 @@ public class CategoryRestful {
 	@POST
 	@Path("/create")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public ResponseEntity<CategoryResponse> create(String productJson) throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> create(String categoryJson) throws JsonProcessingException{
 					
-		return ResponseEntity.status(200).body(categoryBusiness.create(productJson));
+		return ResponseEntity.status(200).body(categoryBusiness.create(categoryJson));
 	}
 	
 	@PUT
 	@Path("/update")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public ResponseEntity<CategoryResponse> update(String productJson) throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> update(String categoryJson) throws JsonProcessingException{
 		
-		return ResponseEntity.status(200).body(categoryBusiness.update(productJson));
+		return ResponseEntity.status(200).body(categoryBusiness.update(categoryJson));
 	}
 	
 	@DELETE
 	@Path("/delete")
 	@Produces(value = MediaType.APPLICATION_JSON)
-	public ResponseEntity<CategoryResponse> delete(@QueryParam("productId") String productId) throws JsonProcessingException{
+	public ResponseEntity<CategoryResponse> delete(@QueryParam("categoryId") String categoryId) throws JsonProcessingException{
 		
-		return ResponseEntity.status(200).body(categoryBusiness.delete(productId));
+		return ResponseEntity.status(200).body(categoryBusiness.delete(categoryId));
 	}
 
 }
