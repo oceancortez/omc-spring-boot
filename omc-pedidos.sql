@@ -52,6 +52,7 @@ ADD COLUMN `QTDPRD` INT NOT NULL AFTER `VLRPRD`;
 ALTER TABLE `omc`.`produto` 
 ADD UNIQUE INDEX `NOMPRD_UNIQUE` (`NOMPRD` ASC);
 
+-- ------------------------- Create table category
 ALTER TABLE `omc`.`produto` 
 ADD COLUMN `CODCAT` BIGINT(20) NOT NULL AFTER `DATULTALTPRD`;
 
