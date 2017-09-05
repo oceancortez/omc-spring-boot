@@ -9,7 +9,7 @@
   <packaging>war</packaging>
   
    <properties>
-		<start-class>org.omc.config.SpringBootRestApiApp</start-class>
+		<start-class>org.omc.config.SpringBootRestApiApp</start-class>		
 	</properties>
 
 	<dependencies>
@@ -34,17 +34,10 @@
 			<scope>provided</scope>
 		</dependency>
 			 
-	<!-- Para usar o WildFly como server externo, tem que excluir o tomcat embedded  -->		 
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-web</artifactId>
-		<exclusions>
-			<exclusion>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-tomcat</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>            
+        </dependency>
 
 		<!-- Provided -->
 		<dependency>
@@ -52,7 +45,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		
 
 	</dependencies>
 

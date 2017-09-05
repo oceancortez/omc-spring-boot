@@ -1,7 +1,6 @@
 package org.omc.rest;
 
 import org.omc.seguro.service.NegocioService;
-import org.omc.vo.NegocioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/rest")
 public class NegocioREST {
 
 	
