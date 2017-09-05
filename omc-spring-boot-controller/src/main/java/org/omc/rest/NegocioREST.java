@@ -20,7 +20,7 @@ public class NegocioREST {
 	@RequestMapping(value = "getNegocio", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> getNegocio(){
 		
-		return new ResponseEntity<NegocioVO>(new NegocioVO(), HttpStatus.OK);
+		return new ResponseEntity<>(negocioService.getNegocio(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "getNegocios", method = RequestMethod.GET)

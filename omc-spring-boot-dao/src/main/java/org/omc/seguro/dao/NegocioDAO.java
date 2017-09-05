@@ -26,4 +26,9 @@ public class NegocioDAO {
 	public List<NegocioEntity> getNegocios() {
 		return this.sessionFactory.getCurrentSession().createQuery("SELECT n from NegocioEntity n ").list();
 	}
+
+	public NegocioEntity getNegocio() {
+		return (NegocioEntity) this.sessionFactory.getCurrentSession().createQuery("SELECT n from NegocioEntity n ").uniqueResult();
+		
+	}
 }

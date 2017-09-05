@@ -23,4 +23,9 @@ public class NegocioService {
 		return negocioDAO.getNegocios();
 	}
 
+	public NegocioEntity getNegocio() {
+		return negocioDAO.getNegocio();
+		
+	}
+
 }
