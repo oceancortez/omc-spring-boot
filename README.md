@@ -15,14 +15,14 @@ Usando Wildfly com Mysql
 
 
 	<module xmlns="urn:jboss:module:1.3" name="com.mysql.driver">
- <resources>
-  <resource-root path="mysql-connector-java-5.1.35-bin.jar" />
- </resources>
- <dependencies>
-  <module name="javax.api"/>
-  <module name="javax.transaction.api"/>
- </dependencies>
-</module> 
+ 	<resources>
+  	<resource-root path="mysql-connector-java-5.1.35-bin.jar" />
+	 </resources>
+ 	<dependencies>
+ 	 <module name="javax.api"/>
+ 	 <module name="javax.transaction.api"/>
+ 	</dependencies>
+	</module> 
 
 
 4º Subir o servidor rodar standalone.bat
