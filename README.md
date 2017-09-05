@@ -13,6 +13,7 @@ Usando Wildfly com Mysql
 
 3º Criar o arquivo module.xml na pasta main com a config abaixo
 
+
 	<module xmlns="urn:jboss:module:1.3" name="com.mysql.driver">
  <resources>
   <resource-root path="mysql-connector-java-5.1.35-bin.jar" />
@@ -22,6 +23,7 @@ Usando Wildfly com Mysql
   <module name="javax.transaction.api"/>
  </dependencies>
 </module> 
+
 
 4º Subir o servidor rodar standalone.bat
 
