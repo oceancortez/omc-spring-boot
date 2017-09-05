@@ -6,13 +6,14 @@ Start
 Usando Wildfly com Mysql
 
 1º Criar as seguintes pastas
-- modules/system/layers/base/com/mysql/driver/main
+- ${WILDFLY_HOME}/modules/system/layers/base/com/mysql/driver/main/module.xml
 
 2º Colocar o jar do mysql no pasta main
 - mysql-connector-java-5.1.35-bin.jar
 
 3º Criar o arquivo module.xml na pasta main com a config abaixo
-<module xmlns="urn:jboss:module:1.3" name="com.mysql.driver">
+
+	<module xmlns="urn:jboss:module:1.3" name="com.mysql.driver">
  <resources>
   <resource-root path="mysql-connector-java-5.1.35-bin.jar" />
  </resources>
@@ -26,9 +27,15 @@ Usando Wildfly com Mysql
 
 5º Adicionar um usuario rodar add-user.bat   como ManagementRealm
 
-6º acessar "http://localhost:9990/console/App.html#home"     para configuar o data source 
+6º - Rodar o jboss-cli.bat e digitar connect
 
-7º configurar igual o ExampleDS
+	6.1 - digitar    /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql.driver,driver-class-name=com.mysql.jdbc.Driver)
+
+7º acessar "http://localhost:9990/console/App.html#home"     para configuar o data source
+ 
+	7.1 - Create DataSource > SubSystems > DataSources > Non-XA > 
+
+8º configurar igual o ExampleDS
 
 
 
