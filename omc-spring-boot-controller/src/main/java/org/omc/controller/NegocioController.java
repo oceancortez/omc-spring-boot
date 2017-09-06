@@ -26,4 +26,16 @@ public class NegocioController {
 		return new ModelAndView("negocio").addObject("negocios", negocioService.getNegocios());
 	}
 	
+	@RequestMapping(value = "getNegocioJdbcTemplate", method = RequestMethod.GET)
+	public ModelAndView  getNegocioJdbcTemplate(){
+		
+		return new ModelAndView("negocio").addObject("negocio", negocioService.getNegocioJdbcTemplate());
+	}
+	
+	@RequestMapping(value = "getNegociosJdbcTemplate", method = RequestMethod.GET)
+	public ModelAndView getNegociosJdbcTemplate(){
+		
+		return new ModelAndView("negocio").addObject("negocios", negocioService.getNegociosJdbcTemplate());
+	}
+	
 }

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Repository
-public class NegocioDAO {
+public class NegocioDAO  {
 	
 	@Autowired
 	SessionFactory sessionFactory;

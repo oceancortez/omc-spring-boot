@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.omc.seguro.NegocioEntity;
 import org.omc.seguro.dao.NegocioDAO;
+import org.omc.seguro.dao.NegocioJdbcTemplateDAO;
 import org.omc.seguro.to.NegocioTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,9 @@ public class NegocioService {
 	
 	private static ObjectMapper MAPPER = new ObjectMapper();
 	
-	@Autowired NegocioDAO negocioDAO; 
+	@Autowired NegocioDAO negocioDAO;
+	
+	@Autowired NegocioJdbcTemplateDAO negocioJdbcTemplateDAO;
 
 
 	public NegocioTO getNegocio() {				
@@ -32,6 +35,14 @@ public class NegocioService {
 	
 	public List<NegocioTO> getNegocios() {
 		return parseEntitiesForTOs(negocioDAO.getNegocios());
+	}
+	
+	public NegocioTO getNegocioJdbcTemplate() {				
+		return parseEntityForTO(negocioJdbcTemplateDAO.getNegocio());		
+	}
+	
+	public List<NegocioTO> getNegociosJdbcTemplate() {
+		return parseEntitiesForTOs(negocioJdbcTemplateDAO.getNegocios());
 	}
 	
 	
