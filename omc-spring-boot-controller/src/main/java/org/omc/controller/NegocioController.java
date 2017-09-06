@@ -38,4 +38,16 @@ public class NegocioController {
 		return new ModelAndView("negocio").addObject("negocios", negocioService.getNegociosJdbcTemplate());
 	}
 	
+	@RequestMapping(value = "getNegocioSpringDataJPA", method = RequestMethod.GET)
+	public ModelAndView  getNegocioSpringDataJPA(){
+		
+		return new ModelAndView("negocio").addObject("negocio", negocioService.getNegocioSpringDataJPA());
+	}
+	
+	@RequestMapping(value = "getNegociosSpringDataJPA", method = RequestMethod.GET)
+	public ModelAndView getNegociosSpringDataJPA(){
+		
+		return new ModelAndView("negocio").addObject("negocios", negocioService.getNegociosSpringDataJPA());
+	}
+	
 }
