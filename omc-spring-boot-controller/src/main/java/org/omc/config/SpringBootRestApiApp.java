@@ -57,6 +57,18 @@ public class SpringBootRestApiApp extends SpringBootServletInitializer {
 		}
 		return dataSource;
 	}
+	
+//    @Bean
+//    public DataSource getDataSource() {
+//    	org.apache.tomcat.jdbc.pool.DataSource dataSourceConfig = new org.apache.tomcat.jdbc.pool.DataSource();
+//                
+//        dataSourceConfig.setDriverClassName(env.getRequiredProperty("spring.datasource.driver"));
+//        dataSourceConfig.setUrl(env.getRequiredProperty("spring.datasource.url"));
+//        dataSourceConfig.setUsername(env.getRequiredProperty("spring.datasource.username"));
+//        dataSourceConfig.setPassword(env.getRequiredProperty("spring.datasource.password"));   
+// 
+//        return new org.apache.tomcat.jdbc.pool.DataSource(dataSourceConfig);
+//    }
 
 	@Bean
 	public JdbcTemplate getJdbcTemplate() {

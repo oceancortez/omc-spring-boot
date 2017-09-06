@@ -1,43 +1,45 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.omc</groupId>
-    <artifactId>omc-spring-boot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>omc-spring-boot-controller</artifactId>
-  <packaging>war</packaging>
-  
-   <properties>
-		<start-class>org.omc.config.SpringBootRestApiApp</start-class>		
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.omc</groupId>
+		<artifactId>omc-spring-boot</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>omc-spring-boot-controller</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<start-class>org.omc.config.SpringBootRestApiApp</start-class>
 	</properties>
 
 	<dependencies>
 
-	<dependency>
-		<groupId>org.omc</groupId>
-		<artifactId>omc-spring-boot-service</artifactId>
-		<version>${project.parent.version}</version>
-	</dependency>
-	
+		<dependency>
+			<groupId>org.omc</groupId>
+			<artifactId>omc-spring-boot-service</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
 		<!-- Compile -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
 		</dependency>
 
-		<!-- marked the embedded servlet container as provided -->	
+		<!-- marked the embedded servlet container as provided -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<!-- provided para não usar o tomcat do boot, estou usando o wildfly como server -->
+			<!-- provided para não usar o tomcat do boot, estou usando o wildfly como 
+				server -->
 			<scope>provided</scope>
 		</dependency>
-			 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>            
-        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
 		<!-- Provided -->
 		<dependency>
@@ -45,12 +47,18 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
@@ -64,5 +72,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>
