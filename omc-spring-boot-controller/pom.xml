@@ -17,7 +17,7 @@
 
 		<dependency>
 			<groupId>org.omc</groupId>
-			<artifactId>omc-spring-boot-service</artifactId>
+			<artifactId>omc-spring-boot-ws</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
