@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -58,16 +59,21 @@ public class SpringBootRestApiApp extends SpringBootServletInitializer {
 		return dataSource;
 	}
 	
+	
+//	/**
+//	 * 
+//	 * @getDataSource apenas para exutar test pelo Junit
+//	 */	
 //    @Bean
 //    public DataSource getDataSource() {
-//    	org.apache.tomcat.jdbc.pool.DataSource dataSourceConfig = new org.apache.tomcat.jdbc.pool.DataSource();
+//    	DriverManagerDataSource dataSourceConfig = new DriverManagerDataSource();
 //                
 //        dataSourceConfig.setDriverClassName(env.getRequiredProperty("spring.datasource.driver"));
 //        dataSourceConfig.setUrl(env.getRequiredProperty("spring.datasource.url"));
 //        dataSourceConfig.setUsername(env.getRequiredProperty("spring.datasource.username"));
 //        dataSourceConfig.setPassword(env.getRequiredProperty("spring.datasource.password"));   
 // 
-//        return new org.apache.tomcat.jdbc.pool.DataSource(dataSourceConfig);
+//        return dataSourceConfig;
 //    }
 
 	@Bean
