@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Repository
-public class NegocioDAO  {
+public class NegocioDAO  extends BaseDAO<NegocioEntity> {
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -25,10 +25,5 @@ public class NegocioDAO  {
 	@SuppressWarnings("unchecked")
 	public List<NegocioEntity> getNegocios() {
 		return this.sessionFactory.getCurrentSession().createQuery("SELECT n from NegocioEntity n ").list();
-	}
-
-	public NegocioEntity getNegocio() {
-		return (NegocioEntity) this.sessionFactory.getCurrentSession().createQuery("SELECT n from NegocioEntity n ").uniqueResult();
-		
 	}
 }

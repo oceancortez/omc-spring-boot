@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -15,9 +16,9 @@ public class NegocioController {
 	@Autowired NegocioService negocioService;
 	
 	@RequestMapping(value = "getNegocio", method = RequestMethod.GET)
-	public ModelAndView  getNegocio(){
+	public ModelAndView  getNegocio(@RequestParam(value = "id")Long id){
 		
-		return new ModelAndView("negocio").addObject("negocio", negocioService.getNegocio());
+		return new ModelAndView("negocio").addObject("negocio", negocioService.getNegocioById(id));
 	}
 	
 	@RequestMapping(value = "getNegocios", method = RequestMethod.GET)

@@ -32,8 +32,8 @@ public class NegocioService {
 	@Autowired INegocioRepository negocioRepository;
 
 
-	public NegocioTO getNegocio() {				
-		return parseEntityForTO(negocioDAO.getNegocio());		
+	public NegocioTO getNegocioById(Long id) {				
+		return parseEntityForTO(negocioDAO.findById(id, NegocioEntity.class));		
 	}
 	
 	public List<NegocioTO> getNegocios() {
