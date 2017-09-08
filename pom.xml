@@ -9,6 +9,7 @@
   	<module>omc-spring-boot-dao</module>
   	<module>omc-spring-boot-service</module>
   	<module>omc-spring-boot-ws</module>
+  	<module>omc-spring-boot-utils</module>
   </modules>
   
    <parent>
