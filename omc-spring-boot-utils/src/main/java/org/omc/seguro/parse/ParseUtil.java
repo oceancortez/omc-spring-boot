@@ -29,7 +29,7 @@ public class ParseUtil {
 		return tos;
 	}
 
-	public static <T> T parseEntityForTO(Object entity, Class<T> clazz) {
+	public static <T> T parseObjectAForB(Object entity, Class<T> clazz) {
 		T to = null;
 		try {
 			

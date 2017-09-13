@@ -14,11 +14,11 @@ public class BaseDAO<T> {
 	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
-	public T persist(final T transientInstance) {
+	public T save(final T transientInstance) {
 		return (T) this.sessionFactory.getCurrentSession().save(transientInstance);
 	}
 	
-	public void remove(final T persistentInstance) {
+	public void delete(final T persistentInstance) {
 		this.sessionFactory.getCurrentSession().delete(persistentInstance);
 	}
 	

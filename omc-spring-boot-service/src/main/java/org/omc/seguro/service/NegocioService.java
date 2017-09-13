@@ -30,7 +30,7 @@ public class NegocioService {
 
 	public NegocioTO getNegocioById(Long id) {
 		NegocioEntity negocioEntity = negocioDAO.findById(id, NegocioEntity.class);
-		return ParseUtil.parseEntityForTO(negocioEntity, NegocioTO.class);
+		return ParseUtil.parseObjectAForB(negocioEntity, NegocioTO.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -39,7 +39,7 @@ public class NegocioService {
 	}
 
 	public NegocioTO getNegocioJdbcTemplate() {
-		return ParseUtil.parseEntityForTO(negocioJdbcTemplateDAO.getNegocio(), NegocioTO.class);
+		return ParseUtil.parseObjectAForB(negocioJdbcTemplateDAO.getNegocio(), NegocioTO.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,7 +49,7 @@ public class NegocioService {
 	}
 
 	public NegocioTO getNegocioSpringDataJPA() {
-		return ParseUtil.parseEntityForTO(negocioRepository.findOne(1), NegocioTO.class);
+		return ParseUtil.parseObjectAForB(negocioRepository.findOne(1), NegocioTO.class);
 	}
 
 	@SuppressWarnings("unchecked")
