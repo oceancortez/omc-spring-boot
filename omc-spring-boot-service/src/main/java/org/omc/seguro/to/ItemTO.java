@@ -10,6 +10,8 @@ public class ItemTO implements Serializable{
 	private static final long serialVersionUID = 1090369397667800507L;
 
 	private Long cdItem;
+	
+	private String tpHistoItem;
 
 	private Long cdApoli;
 
@@ -28,8 +30,9 @@ public class ItemTO implements Serializable{
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtEmissItem;
+	
+	private String tpHistoNgoco;
 
-	private String tpHistoItem;
 
 	public Long getCdItem() {
 		return cdItem;
@@ -109,6 +112,14 @@ public class ItemTO implements Serializable{
 
 	public void setTpHistoItem(String tpHistoItem) {
 		this.tpHistoItem = tpHistoItem;
+	}
+
+	public String getTpHistoNgoco() {
+		return tpHistoNgoco;
+	}
+
+	public void setTpHistoNgoco(String tpHistoNgoco) {
+		this.tpHistoNgoco = tpHistoNgoco;
 	}
 	
 	
