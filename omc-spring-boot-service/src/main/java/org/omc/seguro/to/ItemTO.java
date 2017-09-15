@@ -23,10 +23,10 @@ public class ItemTO implements Serializable{
 
 	private Long cdMdupr;
 
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
 	private Date dtUltmaAlter;
 
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtEmissItem;
 
 	private String tpHistoItem;

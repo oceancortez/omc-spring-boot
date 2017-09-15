@@ -1,6 +1,7 @@
 package org.omc.seguro.parse;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +35,8 @@ public class ParseUtil {
 		try {
 			
 			String json = MAPPER.writeValueAsString(entity);
-			to = MAPPER.readValue(json, clazz);
+			// (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss") para fazer o parse da data que veio do TO que esta com @JsonFormat
+			to = (T) MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).readValue(json, clazz);			
 			
 		} catch (JsonProcessingException e) {		
 			e.printStackTrace();
