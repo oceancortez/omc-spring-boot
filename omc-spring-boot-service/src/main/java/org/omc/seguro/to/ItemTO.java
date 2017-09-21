@@ -31,8 +31,28 @@ public class ItemTO implements Serializable{
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtEmissItem;
 	
-	private String tpHistoNgoco;
+	private String tpHistoNgoco;	
 
+
+	public ItemTO(Long cdItem, String tpHistoItem, Long cdApoli, Long cdApoliSusepRenov, Long cdClien, Long cdEndos,
+			Long cdNgoco, Long cdMdupr, Date dtUltmaAlter, Date dtEmissItem, String tpHistoNgoco) {
+		super();
+		this.cdItem = cdItem;
+		this.tpHistoItem = tpHistoItem;
+		this.cdApoli = cdApoli;
+		this.cdApoliSusepRenov = cdApoliSusepRenov;
+		this.cdClien = cdClien;
+		this.cdEndos = cdEndos;
+		this.cdNgoco = cdNgoco;
+		this.cdMdupr = cdMdupr;
+		this.dtUltmaAlter = dtUltmaAlter;
+		this.dtEmissItem = dtEmissItem;
+		this.tpHistoNgoco = tpHistoNgoco;
+	}
+
+	public ItemTO() {
+		
+	}
 
 	public Long getCdItem() {
 		return cdItem;
