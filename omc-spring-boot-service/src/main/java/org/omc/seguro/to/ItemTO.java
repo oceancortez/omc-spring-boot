@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ItemTO implements Serializable{
 
@@ -31,7 +32,10 @@ public class ItemTO implements Serializable{
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtEmissItem;
 	
-	private String tpHistoNgoco;	
+	private String tpHistoNgoco;
+	
+	@JsonIgnore
+	private String message;
 
 
 	public ItemTO(Long cdItem, String tpHistoItem, Long cdApoli, Long cdApoliSusepRenov, Long cdClien, Long cdEndos,
@@ -48,6 +52,11 @@ public class ItemTO implements Serializable{
 		this.dtUltmaAlter = dtUltmaAlter;
 		this.dtEmissItem = dtEmissItem;
 		this.tpHistoNgoco = tpHistoNgoco;
+	}
+	
+	public ItemTO(String message) {
+		super();
+		this.message = message;
 	}
 
 	public ItemTO() {
@@ -140,6 +149,14 @@ public class ItemTO implements Serializable{
 
 	public void setTpHistoNgoco(String tpHistoNgoco) {
 		this.tpHistoNgoco = tpHistoNgoco;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	
