@@ -2,7 +2,7 @@ package org.omc.seguro.repository.test;
 
 import org.junit.Test;
 import org.omc.seguro.ItemEntity;
-import org.omc.seguro.repository.ItemRepository;
+import org.omc.seguro.repository.data.ItemRepository;
 import org.omc.seguro.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 

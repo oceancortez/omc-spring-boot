@@ -10,7 +10,7 @@ import org.omc.seguro.dao.NegocioDAO;
 import org.omc.seguro.dao.NegocioJdbcTemplateDAO;
 import org.omc.seguro.excpetion.SeguroExcpetion;
 import org.omc.seguro.parse.ParseUtil;
-import org.omc.seguro.repository.NegocioRepository;
+import org.omc.seguro.repository.data.NegocioRepository;
 import org.omc.seguro.to.NegocioTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

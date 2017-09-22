@@ -10,9 +10,11 @@ import org.omc.seguro.NegocioEntity;
 import org.omc.seguro.dao.BaseDAO;
 import org.omc.seguro.dao.ItemDAO;
 import org.omc.seguro.excpetion.SeguroExcpetion;
+import org.omc.seguro.mongo.domain.ItemDomain;
 import org.omc.seguro.parse.ParseUtil;
-import org.omc.seguro.repository.ItemRepository;
-import org.omc.seguro.repository.NegocioRepository;
+import org.omc.seguro.repository.data.ItemRepository;
+import org.omc.seguro.repository.data.NegocioRepository;
+import org.omc.seguro.repository.mongo.ItemMongoRepository;
 import org.omc.seguro.to.ItemTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +22,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemService extends BaseDAO<ItemEntity> {
 
-	@Autowired
-	ItemDAO itemDAO;
+	@Autowired	ItemDAO itemDAO;
 
-	@Autowired
-	ItemRepository itemRepository;
+	@Autowired	ItemRepository itemRepository;
 
-	@Autowired
-	NegocioRepository negocioRepository;
+	@Autowired	NegocioRepository negocioRepository;
+	
+	@Autowired ItemMongoRepository itemMongoRepository;
+		
 
 	@SuppressWarnings("unchecked")
 	public List<ItemTO> getItens() {
@@ -136,6 +138,34 @@ public class ItemService extends BaseDAO<ItemEntity> {
 	@SuppressWarnings("unchecked")
 	public List<ItemTO> getItensByCdNgoco(Long cdNgoco) {
 		return (List<ItemTO>)  ParseUtil.parseEntitiesForTOs(itemRepository.findByCdNgoco(cdNgoco), new ArrayList<ItemTO>());
+	}
+	
+	public ItemTO getItemByCdItemMongo(Long cdItem) {
+		return ParseUtil.parseObjectAForB(itemMongoRepository.findByCdItem(cdItem), ItemTO.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ItemTO> getItensByMongo() {
+		return (List<ItemTO>) ParseUtil.parseEntitiesForTOs(itemMongoRepository.findAll(), new ArrayList<ItemTO>());
+	}
+
+	public ItemTO saveItemMongo(ItemTO to) {		
+		
+		ItemDomain item = itemMongoRepository.save(
+								new ItemDomain(
+												to.getCdItem(),
+												to.getTpHistoItem(),
+												to.getCdApoli(),
+												to.getCdApoliSusepRenov(),
+												to.getCdClien(),
+												to.getCdEndos(),
+												to.getCdNgoco(),
+												to.getTpHistoNgoco(),
+												to.getCdMdupr(),
+												to.getDtUltmaAlter(),
+												to.getDtEmissItem())
+								);
+		return ParseUtil.parseObjectAForB(item, ItemTO.class);
 	}
 
 }

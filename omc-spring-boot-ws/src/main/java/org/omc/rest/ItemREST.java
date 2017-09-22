@@ -95,6 +95,27 @@ public class ItemREST {
 	public ResponseEntity<?> getItensByCdNgoco(@RequestParam("cdNgoco") Long cdNgoco) {
 		return new ResponseEntity<>(itemService.getItensByCdNgoco(cdNgoco), HttpStatus.OK);
 	}
-
 	
+	@GetMapping(value = "getItemByCdItemMongo")
+	public ResponseEntity<?> getItemByCdItemMongo(@RequestParam("cdItem") Long cdItem) {
+
+		return new ResponseEntity<>(itemService.getItemByCdItemMongo(cdItem), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "getItensByMongo")
+	public ResponseEntity<?> getItensByMongo() {
+
+		return new ResponseEntity<>(itemService.getItensByMongo(), HttpStatus.OK);
+	}
+	
+	@PostMapping("saveItemMongo")
+	public ResponseEntity<?> saveItemMongo(@RequestBody ItemTO to) {
+
+		try {
+			return new ResponseEntity<>(itemService.saveItemMongo(to), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(ExceptionUtils.getStackTrace(e), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }

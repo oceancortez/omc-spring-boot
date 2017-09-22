@@ -1,4 +1,4 @@
-package org.omc.seguro.repository;
+package org.omc.seguro.repository.data;
 
 import java.util.Optional;
 
