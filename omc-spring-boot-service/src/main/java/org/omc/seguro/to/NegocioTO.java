@@ -10,33 +10,31 @@ public class NegocioTO implements Serializable {
 	private static final long serialVersionUID = -5075996221577731195L;
 
 	private Integer cdNgoco;
+	
+	private String tpHistoNgoco;
 
 	private String nmCia;
 
 	private Integer cdRamo;
-
-	private Integer cdApolice;
-
-	private Integer cdApoliceSusep;
-
+	
 	private Integer cdMdupr;
 
 	private String dsMdupr;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtEmissao;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtInicoVigen;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtFimVigen;
 
 	private String cdSitucNgoco;
 
 	private Integer cdEstpl;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dtVigenPropor;
 
 	private Integer cdGrpPrdut;
@@ -61,8 +59,7 @@ public class NegocioTO implements Serializable {
 
 	private Integer cdEndosso;
 
-	private Integer cdClien;
-	
+	private Integer cdClien;	
 
 
 	public Integer getCdNgoco() {
@@ -87,22 +84,6 @@ public class NegocioTO implements Serializable {
 
 	public void setCdRamo(Integer cdRamo) {
 		this.cdRamo = cdRamo;
-	}
-
-	public Integer getCdApolice() {
-		return cdApolice;
-	}
-
-	public void setCdApolice(Integer cdApolice) {
-		this.cdApolice = cdApolice;
-	}
-
-	public Integer getCdApoliceSusep() {
-		return cdApoliceSusep;
-	}
-
-	public void setCdApoliceSusep(Integer cdApoliceSusep) {
-		this.cdApoliceSusep = cdApoliceSusep;
 	}
 
 	public Integer getCdMdupr() {
@@ -263,6 +244,14 @@ public class NegocioTO implements Serializable {
 
 	public void setCdClien(Integer cdClien) {
 		this.cdClien = cdClien;
+	}
+
+	public String getTpHistoNgoco() {
+		return tpHistoNgoco;
+	}
+
+	public void setTpHistoNgoco(String tpHistoNgoco) {
+		this.tpHistoNgoco = tpHistoNgoco;
 	}
 	
 	
