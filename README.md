@@ -16,7 +16,7 @@ Usando Wildfly com Mysql
 
 	<module xmlns="urn:jboss:module:1.3" name="com.mysql.driver">
  	<resources>
-  	<resource-root path="mysql-connector-java-5.1.35-bin.jar" />
+  	<resource-root path="mysql-connector-java-5.1.35.jar" />
 	 </resources>
  	<dependencies>
  	 <module name="javax.api"/>
